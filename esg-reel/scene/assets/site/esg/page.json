@@ -1,0 +1,867 @@
+{
+ "url": "https://www.dasandmc.com/kor/esg/esg.html",
+ "title": "ESG:ESG",
+ "scrollHeight": 1388,
+ "imgs": [
+  {
+   "src": "https://www.dasandmc.com/kor/images/logo.png",
+   "alt": "",
+   "nat": [
+    285,
+    30
+   ],
+   "box": {
+    "x": 313,
+    "y": 40,
+    "w": 190,
+    "h": 20
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/lan_img.png",
+   "alt": "",
+   "nat": [
+    17,
+    17
+   ],
+   "box": {
+    "x": 1473,
+    "y": 39.0625,
+    "w": 17,
+    "h": 17
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/home.jpg",
+   "alt": "",
+   "nat": [
+    18,
+    14
+   ],
+   "box": {
+    "x": 333,
+    "y": 356,
+    "w": 20,
+    "h": 15.546875
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/flogo.png",
+   "alt": "",
+   "nat": [
+    230,
+    24
+   ],
+   "box": {
+    "x": 313,
+    "y": 1172.203125,
+    "w": 230,
+    "h": 24
+   }
+  }
+ ],
+ "bgs": [
+  {
+   "src": "https://www.dasandmc.com/kor/images/sub_main1.jpg",
+   "box": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 339
+   },
+   "cls": "sub_main01"
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/navi_bg.png",
+   "box": {
+    "x": 373,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "cls": ""
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/navi_bg.png",
+   "box": {
+    "x": 623,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "cls": ""
+  }
+ ],
+ "texts": [
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ABOUT DASAN DMC",
+   "box": {
+    "x": 563,
+    "y": 30,
+    "w": 166,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "AUTOMOTIVE",
+   "box": {
+    "x": 763,
+    "y": 30,
+    "w": 111,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "NAVIGATION / IT",
+   "box": {
+    "x": 923,
+    "y": 30,
+    "w": 131,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "TECHNOLOGY",
+   "box": {
+    "x": 1093,
+    "y": 30,
+    "w": 115,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ESG",
+   "box": {
+    "x": 1263,
+    "y": 30,
+    "w": 33,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "IR",
+   "box": {
+    "x": 1373,
+    "y": 30,
+    "w": 17,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "div",
+   "cls": "m_box",
+   "own": "LANGUAGE",
+   "box": {
+    "x": 1473,
+    "y": 0,
+    "w": 106.625,
+    "h": 100
+   },
+   "size": "15px",
+   "weight": "400",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "About us",
+   "box": {
+    "x": 563,
+    "y": 131,
+    "w": 61.046875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Location",
+   "box": {
+    "x": 563,
+    "y": 158,
+    "w": 57.046875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Clients",
+   "box": {
+    "x": 563,
+    "y": 185,
+    "w": 45.171875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Suspension Parts",
+   "box": {
+    "x": 763,
+    "y": 131,
+    "w": 112.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Steering Parts",
+   "box": {
+    "x": 763,
+    "y": 158,
+    "w": 91.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Weather Strips",
+   "box": {
+    "x": 763,
+    "y": 185,
+    "w": 97.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Electric Unit",
+   "box": {
+    "x": 763,
+    "y": 212,
+    "w": 80.453125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Others",
+   "box": {
+    "x": 763,
+    "y": 239,
+    "w": 44.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Hybrid Navigation",
+   "box": {
+    "x": 923,
+    "y": 131,
+    "w": 120.96875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Connected ADAS",
+   "box": {
+    "x": 923,
+    "y": 158,
+    "w": 117.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Over-the-Air",
+   "box": {
+    "x": 923,
+    "y": 185,
+    "w": 82.5625,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Telematics",
+   "box": {
+    "x": 923,
+    "y": 212,
+    "w": 68.8125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Mobility Platform",
+   "box": {
+    "x": 923,
+    "y": 239,
+    "w": 117.96875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "CAE Capability",
+   "box": {
+    "x": 1093,
+    "y": 131,
+    "w": 100.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Testing Capability",
+   "box": {
+    "x": 1093,
+    "y": 158,
+    "w": 116.84375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "New Developments",
+   "box": {
+    "x": 1093,
+    "y": 185,
+    "w": 132.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Measuring Device",
+   "box": {
+    "x": 1093,
+    "y": 212,
+    "w": 120.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "ESG 전략",
+   "box": {
+    "x": 1263,
+    "y": 131,
+    "w": 60.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "환경경영",
+   "box": {
+    "x": 1263,
+    "y": 158,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "사회책임경영",
+   "box": {
+    "x": 1263,
+    "y": 185,
+    "w": 83.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "투명경영",
+   "box": {
+    "x": 1263,
+    "y": 212,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "라이브러리",
+   "box": {
+    "x": 1263,
+    "y": 239,
+    "w": 69.40625,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "공지사항",
+   "box": {
+    "x": 1373,
+    "y": 131,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "공시정보",
+   "box": {
+    "x": 1373,
+    "y": 158,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "주가정보",
+   "box": {
+    "x": 1373,
+    "y": 185,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "div",
+   "cls": "sub_main01",
+   "own": "ESG 경영",
+   "box": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 339
+   },
+   "size": "50px",
+   "weight": "200",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ESG",
+   "box": {
+    "x": 373,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(75, 75, 75)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ESG",
+   "box": {
+    "x": 623,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(75, 75, 75)"
+  },
+  {
+   "tag": "span",
+   "cls": "n",
+   "own": "ESG",
+   "box": {
+    "x": 404,
+    "y": 513,
+    "w": 25.5625,
+    "h": 20.796875
+   },
+   "size": "13px",
+   "weight": "800",
+   "color": "rgb(62, 78, 180)"
+  },
+  {
+   "tag": "h2",
+   "cls": "",
+   "own": "ESG 메뉴",
+   "box": {
+    "x": 404,
+    "y": 543.796875,
+    "w": 1112,
+    "h": 46.390625
+   },
+   "size": "29px",
+   "weight": "800",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "h3",
+   "cls": "",
+   "own": "ESG 전략",
+   "box": {
+    "x": 429,
+    "y": 714.1875,
+    "w": 214.5,
+    "h": 20
+   },
+   "size": "17px",
+   "weight": "700",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "p",
+   "cls": "",
+   "own": "지속가능한 모빌리티, 다산디엠씨가 만드는 내일",
+   "box": {
+    "x": 429,
+    "y": 743.1875,
+    "w": 214.5,
+    "h": 45.34375
+   },
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "h3",
+   "cls": "",
+   "own": "환경경영",
+   "box": {
+    "x": 711.5,
+    "y": 714.1875,
+    "w": 214.5,
+    "h": 20
+   },
+   "size": "17px",
+   "weight": "700",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "p",
+   "cls": "",
+   "own": "인간·환경·사회의 조화, 환경 보호로 사회적 책임을 완수합니다",
+   "box": {
+    "x": 711.5,
+    "y": 743.1875,
+    "w": 214.5,
+    "h": 45.34375
+   },
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "h3",
+   "cls": "",
+   "own": "사회책임경영",
+   "box": {
+    "x": 994,
+    "y": 714.1875,
+    "w": 214.5,
+    "h": 20
+   },
+   "size": "17px",
+   "weight": "700",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "p",
+   "cls": "",
+   "own": "안전하고 건강한 일터, 사람을 먼저 생각하는 책임경영",
+   "box": {
+    "x": 994,
+    "y": 743.1875,
+    "w": 214.5,
+    "h": 45.34375
+   },
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "h3",
+   "cls": "",
+   "own": "투명경영",
+   "box": {
+    "x": 1276.5,
+    "y": 714.1875,
+    "w": 214.5,
+    "h": 20
+   },
+   "size": "17px",
+   "weight": "700",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "p",
+   "cls": "",
+   "own": "정직과 신뢰로 지속가능한 성장을 추구합니다",
+   "box": {
+    "x": 1276.5,
+    "y": 743.1875,
+    "w": 214.5,
+    "h": 45.34375
+   },
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "h3",
+   "cls": "",
+   "own": "라이브러리",
+   "box": {
+    "x": 429,
+    "y": 929.53125,
+    "w": 214.5,
+    "h": 20
+   },
+   "size": "17px",
+   "weight": "700",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "p",
+   "cls": "",
+   "own": "ESG 정책·인증서·평가 결과 자료실",
+   "box": {
+    "x": 429,
+    "y": 958.53125,
+    "w": 214.5,
+    "h": 22.671875
+   },
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "FAMILY SITE",
+   "box": {
+    "x": 1407,
+    "y": 1182.203125,
+    "w": 200,
+    "h": 29
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "다산그룹",
+   "box": {
+    "x": 1434,
+    "y": 1047.203125,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜다산네트웍스",
+   "box": {
+    "x": 1434,
+    "y": 1077.203125,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜다산솔루에타",
+   "box": {
+    "x": 1434,
+    "y": 1107.203125,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜디디에스",
+   "box": {
+    "x": 1434,
+    "y": 1137.203125,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "div",
+   "cls": "",
+   "own": "DASAN DMC HQ:Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-2-1522-9060 FAX : +82-70-5138-1781 Gwacheon Branch : Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-70-4946-7200 FAX : +82-2-504-8535 Yeongchen Factory 1 : 23 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316 Yeongchen Factory 2 : 66, Sehom-gil, Yeongcheon-si, Gyeongsangbuk-do, 38823, Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316 Yeongchen Logistics Center : 17 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7247 FAX : +82-54-336-2316",
+   "box": {
+    "x": 313,
+    "y": 1221.203125,
+    "w": 1294,
+    "h": 127
+   },
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(156, 156, 156)"
+  },
+  {
+   "tag": "b",
+   "cls": "",
+   "own": "ⓒ 2021. DMC CO.,LTD. ALL RIGHTS RESERVED.",
+   "box": {
+    "x": 313,
+    "y": 1330.203125,
+    "w": 263.09375,
+    "h": 14
+   },
+   "size": "12px",
+   "weight": "700",
+   "color": "rgb(156, 156, 156)"
+  }
+ ],
+ "mainText": "ABOUT DASAN DMC\nAUTOMOTIVE\nNAVIGATION / IT\nTECHNOLOGY\nESG\nIR\n  LANGUAGE\n\t\nAbout us\nLocation\nClients\nSuspension Parts\nSteering Parts\nWeather Strips\nElectric Unit\nOthers\nHybrid Navigation\nConnected ADAS\nOver-the-Air\nTelematics\nMobility Platform\nCAE Capability\nTesting Capability\nNew Developments\nMeasuring Device\nESG 전략\n환경경영\n사회책임경영\n투명경영\n라이브러리\n공지사항\n공시정보\n주가정보\nESG 경영\nESG\nESG\nESG\nESG 메뉴\nESG 전략\n\n지속가능한 모빌리티, 다산디엠씨가 만드는 내일\n\n환경경영\n\n인간·환경·사회의 조화, 환경 보호로 사회적 책임을 완수합니다\n\n사회책임경영\n\n안전하고 건강한 일터, 사람을 먼저 생각하는 책임경영\n\n투명경영\n\n정직과 신뢰로 지속가능한 성장을 추구합니다\n\n라이브러리\n\nESG 정책·인증서·평가 결과 자료실\n\n FAMILY SITE\n다산그룹\n㈜다산네트웍스\n㈜다산솔루에타\n㈜디디에스\nDASAN DMC HQ:Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-2-1522-9060 FAX : +82-70-5138-1781\nGwacheon Branch : Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-70-4946-7200 FAX : +82-2-504-8535\nYeongchen Factory 1 : 23 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316\nYeongchen Factory 2 : 66, Sehom-gil, Yeongcheon-si, Gyeongsangbuk-do, 38823, Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316\nYeongchen Logistics Center : 17 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7247 FAX : +82-54-336-2316\nⓒ 2021. DMC CO.,LTD. ALL RIGHTS RESERVED.",
+ "local": {
+  "https://www.dasandmc.com/kor/images/logo.png": "img/images__logo.png",
+  "https://www.dasandmc.com/kor/images/lan_img.png": "img/images__lan_img.png",
+  "https://www.dasandmc.com/kor/images/l_02.jpg": "img/images__l_02.jpg",
+  "https://www.dasandmc.com/kor/images/lan_img2.png": "img/images__lan_img2.png",
+  "https://www.dasandmc.com/kor/images/m_menu.png": "img/images__m_menu.png",
+  "https://www.dasandmc.com/kor/images/eng.jpg": "img/images__eng.jpg",
+  "https://www.dasandmc.com/kor/images/home.jpg": "img/images__home.jpg",
+  "https://www.dasandmc.com/kor/images/flogo.png": "img/images__flogo.png",
+  "https://www.dasandmc.com/kor/images/navi_bg.png": "img/images__navi_bg.png",
+  "https://www.dasandmc.com/kor/images/close.png": "img/images__close.png",
+  "https://www.dasandmc.com/kor/images/sub_main1.jpg": "img/images__sub_main1.jpg"
+ }
+}

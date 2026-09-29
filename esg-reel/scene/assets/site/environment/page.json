@@ -1,0 +1,919 @@
+{
+ "url": "https://www.dasandmc.com/kor/esg/environment.html",
+ "title": "환경경영:환경경영 추진체계",
+ "scrollHeight": 1365,
+ "imgs": [
+  {
+   "src": "https://www.dasandmc.com/kor/images/logo.png",
+   "alt": "",
+   "nat": [
+    285,
+    30
+   ],
+   "box": {
+    "x": 313,
+    "y": 40,
+    "w": 190,
+    "h": 20
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/lan_img.png",
+   "alt": "",
+   "nat": [
+    17,
+    17
+   ],
+   "box": {
+    "x": 1473,
+    "y": 39.0625,
+    "w": 17,
+    "h": 17
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/home.jpg",
+   "alt": "",
+   "nat": [
+    18,
+    14
+   ],
+   "box": {
+    "x": 333,
+    "y": 356,
+    "w": 20,
+    "h": 15.546875
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/flogo.png",
+   "alt": "",
+   "nat": [
+    230,
+    24
+   ],
+   "box": {
+    "x": 313,
+    "y": 1148.96875,
+    "w": 230,
+    "h": 24
+   }
+  }
+ ],
+ "bgs": [
+  {
+   "src": "https://www.dasandmc.com/kor/images/sub_main1.jpg",
+   "box": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 339
+   },
+   "cls": "sub_main01"
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/navi_bg.png",
+   "box": {
+    "x": 373,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "cls": ""
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/navi_bg.png",
+   "box": {
+    "x": 623,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "cls": ""
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/navi_bg.png",
+   "box": {
+    "x": 873,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "cls": ""
+  }
+ ],
+ "texts": [
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ABOUT DASAN DMC",
+   "box": {
+    "x": 563,
+    "y": 30,
+    "w": 166,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "AUTOMOTIVE",
+   "box": {
+    "x": 763,
+    "y": 30,
+    "w": 111,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "NAVIGATION / IT",
+   "box": {
+    "x": 923,
+    "y": 30,
+    "w": 131,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "TECHNOLOGY",
+   "box": {
+    "x": 1093,
+    "y": 30,
+    "w": 115,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ESG",
+   "box": {
+    "x": 1263,
+    "y": 30,
+    "w": 33,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "IR",
+   "box": {
+    "x": 1373,
+    "y": 30,
+    "w": 17,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "div",
+   "cls": "m_box",
+   "own": "LANGUAGE",
+   "box": {
+    "x": 1473,
+    "y": 0,
+    "w": 106.625,
+    "h": 100
+   },
+   "size": "15px",
+   "weight": "400",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "About us",
+   "box": {
+    "x": 563,
+    "y": 131,
+    "w": 61.046875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Location",
+   "box": {
+    "x": 563,
+    "y": 158,
+    "w": 57.046875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Clients",
+   "box": {
+    "x": 563,
+    "y": 185,
+    "w": 45.171875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Suspension Parts",
+   "box": {
+    "x": 763,
+    "y": 131,
+    "w": 112.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Steering Parts",
+   "box": {
+    "x": 763,
+    "y": 158,
+    "w": 91.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Weather Strips",
+   "box": {
+    "x": 763,
+    "y": 185,
+    "w": 97.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Electric Unit",
+   "box": {
+    "x": 763,
+    "y": 212,
+    "w": 80.453125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Others",
+   "box": {
+    "x": 763,
+    "y": 239,
+    "w": 44.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Hybrid Navigation",
+   "box": {
+    "x": 923,
+    "y": 131,
+    "w": 120.96875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Connected ADAS",
+   "box": {
+    "x": 923,
+    "y": 158,
+    "w": 117.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Over-the-Air",
+   "box": {
+    "x": 923,
+    "y": 185,
+    "w": 82.5625,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Telematics",
+   "box": {
+    "x": 923,
+    "y": 212,
+    "w": 68.8125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Mobility Platform",
+   "box": {
+    "x": 923,
+    "y": 239,
+    "w": 117.96875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "CAE Capability",
+   "box": {
+    "x": 1093,
+    "y": 131,
+    "w": 100.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Testing Capability",
+   "box": {
+    "x": 1093,
+    "y": 158,
+    "w": 116.84375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "New Developments",
+   "box": {
+    "x": 1093,
+    "y": 185,
+    "w": 132.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Measuring Device",
+   "box": {
+    "x": 1093,
+    "y": 212,
+    "w": 120.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "ESG 전략",
+   "box": {
+    "x": 1263,
+    "y": 131,
+    "w": 60.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "환경경영",
+   "box": {
+    "x": 1263,
+    "y": 158,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "사회책임경영",
+   "box": {
+    "x": 1263,
+    "y": 185,
+    "w": 83.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "투명경영",
+   "box": {
+    "x": 1263,
+    "y": 212,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "라이브러리",
+   "box": {
+    "x": 1263,
+    "y": 239,
+    "w": 69.40625,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "공지사항",
+   "box": {
+    "x": 1373,
+    "y": 131,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "공시정보",
+   "box": {
+    "x": 1373,
+    "y": 158,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "주가정보",
+   "box": {
+    "x": 1373,
+    "y": 185,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "div",
+   "cls": "sub_main01",
+   "own": "환경경영 추진체계",
+   "box": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 339
+   },
+   "size": "50px",
+   "weight": "200",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ESG",
+   "box": {
+    "x": 373,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(75, 75, 75)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "환경경영",
+   "box": {
+    "x": 623,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(75, 75, 75)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "환경경영 추진체계",
+   "box": {
+    "x": 873,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(75, 75, 75)"
+  },
+  {
+   "tag": "div",
+   "cls": "v",
+   "own": "ISO 14001",
+   "box": {
+    "x": 435,
+    "y": 478,
+    "w": 216.5,
+    "h": 33.59375
+   },
+   "size": "32px",
+   "weight": "800",
+   "color": "rgb(31, 157, 99)"
+  },
+  {
+   "tag": "div",
+   "cls": "l",
+   "own": "환경경영 인증",
+   "box": {
+    "x": 435,
+    "y": 520.59375,
+    "w": 216.5,
+    "h": 21.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "div",
+   "cls": "v",
+   "own": "B",
+   "box": {
+    "x": 712.5,
+    "y": 478,
+    "w": 216.5,
+    "h": 33.59375
+   },
+   "size": "32px",
+   "weight": "800",
+   "color": "rgb(31, 157, 99)"
+  },
+  {
+   "tag": "div",
+   "cls": "l",
+   "own": "CDP 기후변화 등급",
+   "box": {
+    "x": 712.5,
+    "y": 520.59375,
+    "w": 216.5,
+    "h": 21.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "div",
+   "cls": "v",
+   "own": "58",
+   "box": {
+    "x": 990,
+    "y": 478,
+    "w": 216.5,
+    "h": 33.59375
+   },
+   "size": "32px",
+   "weight": "800",
+   "color": "rgb(31, 157, 99)"
+  },
+  {
+   "tag": "div",
+   "cls": "l",
+   "own": "EcoVadis 환경",
+   "box": {
+    "x": 990,
+    "y": 520.59375,
+    "w": 216.5,
+    "h": 21.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "div",
+   "cls": "v",
+   "own": "10.14%",
+   "box": {
+    "x": 1267.5,
+    "y": 478,
+    "w": 217.5,
+    "h": 33.59375
+   },
+   "size": "32px",
+   "weight": "800",
+   "color": "rgb(31, 157, 99)"
+  },
+  {
+   "tag": "div",
+   "cls": "l",
+   "own": "2030 감축 목표",
+   "box": {
+    "x": 1267.5,
+    "y": 520.59375,
+    "w": 217.5,
+    "h": 21.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "div",
+   "cls": "big",
+   "own": "“ 인간·환경·사회의 조화, 환경 보호로 사회적 책임을 완수합니다 ”",
+   "box": {
+    "x": 430,
+    "y": 639.1875,
+    "w": 1086,
+    "h": 36
+   },
+   "size": "24px",
+   "weight": "700",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "div",
+   "cls": "sub",
+   "own": "다산디엠씨는 사업 활동 전 과정의 환경 영향을 식별·평가·관리하며, 환경 법규를 100% 준수합니다. (환경경영 정책 ESHP-ENV-POL-01)",
+   "box": {
+    "x": 430,
+    "y": 687.1875,
+    "w": 1086,
+    "h": 26.34375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "ISO 14001 환경경영시스템 인증 기반 PDCA 순환 관리",
+   "box": {
+    "x": 404,
+    "y": 845.53125,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "경영지원 부문(총무팀) 총괄 · CSEO 보고체계",
+   "box": {
+    "x": 404,
+    "y": 883.640625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "환경 KPI 33종(E-01~E-33) 관리대장으로 정량 목표 운영",
+   "box": {
+    "x": 404,
+    "y": 921.75,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "협력사 ISO 14001 인증 확대(3년 100% 목표) 등 공급망 환경관리",
+   "box": {
+    "x": 404,
+    "y": 959.859375,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "FAMILY SITE",
+   "box": {
+    "x": 1407,
+    "y": 1158.96875,
+    "w": 200,
+    "h": 29
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "다산그룹",
+   "box": {
+    "x": 1434,
+    "y": 1023.96875,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜다산네트웍스",
+   "box": {
+    "x": 1434,
+    "y": 1053.96875,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜다산솔루에타",
+   "box": {
+    "x": 1434,
+    "y": 1083.96875,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜디디에스",
+   "box": {
+    "x": 1434,
+    "y": 1113.96875,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "div",
+   "cls": "",
+   "own": "DASAN DMC HQ:Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-2-1522-9060 FAX : +82-70-5138-1781 Gwacheon Branch : Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-70-4946-7200 FAX : +82-2-504-8535 Yeongchen Factory 1 : 23 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316 Yeongchen Factory 2 : 66, Sehom-gil, Yeongcheon-si, Gyeongsangbuk-do, 38823, Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316 Yeongchen Logistics Center : 17 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7247 FAX : +82-54-336-2316",
+   "box": {
+    "x": 313,
+    "y": 1197.96875,
+    "w": 1294,
+    "h": 127
+   },
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(156, 156, 156)"
+  },
+  {
+   "tag": "b",
+   "cls": "",
+   "own": "ⓒ 2021. DMC CO.,LTD. ALL RIGHTS RESERVED.",
+   "box": {
+    "x": 313,
+    "y": 1306.96875,
+    "w": 263.09375,
+    "h": 14
+   },
+   "size": "12px",
+   "weight": "700",
+   "color": "rgb(156, 156, 156)"
+  }
+ ],
+ "mainText": "ABOUT DASAN DMC\nAUTOMOTIVE\nNAVIGATION / IT\nTECHNOLOGY\nESG\nIR\n  LANGUAGE\n\t\nAbout us\nLocation\nClients\nSuspension Parts\nSteering Parts\nWeather Strips\nElectric Unit\nOthers\nHybrid Navigation\nConnected ADAS\nOver-the-Air\nTelematics\nMobility Platform\nCAE Capability\nTesting Capability\nNew Developments\nMeasuring Device\nESG 전략\n환경경영\n사회책임경영\n투명경영\n라이브러리\n공지사항\n공시정보\n주가정보\n환경경영 추진체계\nESG\n환경경영\n환경경영 추진체계\nISO 14001\n환경경영 인증\nB\nCDP 기후변화 등급\n58\nEcoVadis 환경\n10.14%\n2030 감축 목표\n“ 인간·환경·사회의 조화, 환경 보호로 사회적 책임을 완수합니다 ”\n다산디엠씨는 사업 활동 전 과정의 환경 영향을 식별·평가·관리하며, 환경 법규를 100% 준수합니다. (환경경영 정책 ESHP-ENV-POL-01)\nISO 14001 환경경영시스템 인증 기반 PDCA 순환 관리\n경영지원 부문(총무팀) 총괄 · CSEO 보고체계\n환경 KPI 33종(E-01~E-33) 관리대장으로 정량 목표 운영\n협력사 ISO 14001 인증 확대(3년 100% 목표) 등 공급망 환경관리\n FAMILY SITE\n다산그룹\n㈜다산네트웍스\n㈜다산솔루에타\n㈜디디에스\nDASAN DMC HQ:Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-2-1522-9060 FAX : +82-70-5138-1781\nGwacheon Branch : Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-70-4946-7200 FAX : +82-2-504-8535\nYeongchen Factory 1 : 23 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316\nYeongchen Factory 2 : 66, Sehom-gil, Yeongcheon-si, Gyeongsangbuk-do, 38823, Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316\nYeongchen Logistics Center : 17 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7247 FAX : +82-54-336-2316\nⓒ 2021. DMC CO.,LTD. ALL RIGHTS RESERVED.",
+ "local": {
+  "https://www.dasandmc.com/kor/images/logo.png": "img/images__logo.png",
+  "https://www.dasandmc.com/kor/images/lan_img.png": "img/images__lan_img.png",
+  "https://www.dasandmc.com/kor/images/l_02.jpg": "img/images__l_02.jpg",
+  "https://www.dasandmc.com/kor/images/lan_img2.png": "img/images__lan_img2.png",
+  "https://www.dasandmc.com/kor/images/m_menu.png": "img/images__m_menu.png",
+  "https://www.dasandmc.com/kor/images/eng.jpg": "img/images__eng.jpg",
+  "https://www.dasandmc.com/kor/images/home.jpg": "img/images__home.jpg",
+  "https://www.dasandmc.com/kor/images/flogo.png": "img/images__flogo.png",
+  "https://www.dasandmc.com/kor/images/sub_main1.jpg": "img/images__sub_main1.jpg",
+  "https://www.dasandmc.com/kor/images/navi_bg.png": "img/images__navi_bg.png",
+  "https://www.dasandmc.com/kor/images/close.png": "img/images__close.png"
+ }
+}

@@ -641,3 +641,5 @@ for k in ("kicks", "claps", "snares", "hats", "whooshes", "bells", "perc"):
     cues[k] = sorted(set(cues[k]))
 with open(os.path.join(OUT, "cues.json"), "w") as f:
     json.dump(cues, f, indent=1)
+with open(os.path.join(os.path.dirname(__file__), "..", "scene", "cues.js"), "w") as f:
+    f.write("window.CUES = " + json.dumps(cues) + ";\n")

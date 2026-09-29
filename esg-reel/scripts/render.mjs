@@ -121,9 +121,10 @@ const args = ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', li
 const withAudio = fs.existsSync(audio);
 if (withAudio) args.push('-ss', String(T0), '-t', String(T1 - T0), '-i', audio);
 args.push('-vf', 'scale=out_color_matrix=bt709:out_range=tv:flags=accurate_rnd+full_chroma_int,format=yuv420p',
-  '-c:v', 'libx264', '-preset', 'slow', '-crf', '14', '-profile:v', 'high', '-tune', 'film', '-g', String(FPS),
+  '-c:v', 'libx264', '-preset', 'slow', '-crf', String(arg('crf', 16)), '-profile:v', 'high', '-tune', 'film', '-g', String(FPS),
   '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv');
 if (withAudio) args.push('-c:a', 'aac', '-b:a', '320k', '-ar', '48000', '-shortest');
 args.push('-movflags', '+faststart', OUTF);
 await new Promise((res, rej) => spawn(FFMPEG, args, { stdio: 'inherit' }).on('close', (c) => (c ? rej(new Error('ffmpeg ' + c)) : res())));
+fs.rmSync(TMP, { recursive: true, force: true }); // lossless segments are ~1.5 GB
 console.log(`wrote ${OUTF} in ${((Date.now() - started) / 1000).toFixed(1)}s`);

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>DASAN DMC ESG Reel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div class="base"></div><div class="glow g1"></div><div class="glow g2"></div><div id="grid"></div></div>
+
+  <div id="cam">
+    <!-- 0.000 – 1.875  intro: the site's own hero -->
+    <section id="intro" class="sec">
+      <div class="strip"><div class="sky"></div><div class="shade"></div>
+        <div class="title"><span class="t1">ESG</span> <b class="t2">경영</b></div>
+      </div>
+      <div class="hair"></div>
+      <div class="abs mono tl"></div>
+      <div class="abs mono tr"></div>
+      <div class="tag">지속가능한 모빌리티, 다산디엠씨가 만드는 내일</div>
+      <div class="abs mono bl"></div>
+      <div class="ticks"></div>
+    </section>
+
+    <!-- 1.875 – 3.750  build: the ESG hub page and its menu -->
+    <section id="build" class="sec">
+      <div class="persp"><div class="plane"></div></div>
+      <div class="head"><div class="eyebrow"><span>ESG</span><span class="rule"></span></div><h2>ESG 메뉴</h2></div>
+    </section>
+
+    <!-- 3.750 – 5.625  drop: logo + ESG strategy figures -->
+    <section id="logo" class="sec">
+      <div class="ring"></div>
+      <div class="lg">
+        <img class="r" src="assets/v/logo-red.svg" alt="">
+        <img class="c" src="assets/v/logo-cyan.svg" alt="">
+        <img class="w" src="assets/v/logo-white.svg" alt="DASAN 디엠씨">
+        <div class="sweep" style="--m: url(assets/v/logo-white.svg)"></div>
+      </div>
+      <div class="mono sub"></div>
+      <div class="line"></div>
+      <div class="stats" style="--t: var(--st-t); left: 106px; right: 106px; top: 650px;"></div>
+    </section>
+
+    <!-- 5.625 – 11.250  E / S / G (built from DATA) -->
+    <div id="pillars"></div>
+
+    <!-- 11.250 – 13.125  lift: external ratings & certifications -->
+    <section id="recog" class="sec">
+      <div class="persp"><div class="floor"></div></div>
+      <div class="fade"></div>
+      <div class="head"><div class="eyebrow"><span>04</span><span class="rule"></span><span>대외 평가·인증</span></div><h2>대외 평가·인증</h2></div>
+      <div class="award a1" style="left: 140px;"><div class="n">EcoVadis</div><div class="v">Committed <em>배지</em></div><div class="d">2026.02 · 종합 53 / 환경 58 / 노동 및 인권 57</div><div class="shine"></div></div>
+      <div class="award a2" style="left: 1000px;"><div class="n">CDP 기후변화</div><div class="v"><em>B</em>등급</div><div class="d">2025 · 전년 D 대비 대폭 개선</div><div class="shine"></div></div>
+      <div class="chips"></div>
+    </section>
+
+    <!-- 13.125 – 15.000  end card -->
+    <section id="end" class="sec">
+      <div class="paper"></div>
+      <div class="mono ey"></div>
+      <div class="lg"><img src="assets/v/logo-blue.svg" alt="DASAN 디엠씨"><div class="sweep" style="--m: url(assets/v/logo-white.svg)"></div></div>
+      <div class="esgbar"><i style="background: var(--st)"></i><i style="background: var(--en)"></i><i style="background: var(--so)"></i><i style="background: var(--go)"></i></div>
+      <div class="tag">지속가능한 모빌리티, 다산디엠씨가 만드는 내일</div>
+      <div class="mono url"></div>
+    </section>
+  </div>
+
+  <div id="wipe"><i></i><i></i><i></i></div>
+  <div id="hud"><div class="mono a"></div><div class="mono b"></div><div class="mono c"></div><div class="prog"><i></i></div></div>
+  <div id="flash"></div>
+  <canvas id="grain" width="960" height="540"></canvas>
+  <div id="vig"></div>
+  <div id="black"></div>
+</div>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/CustomEase.min.js"></script>
+<script src="cues.js"></script>
+<script src="reel.js"></script>
+</body>
+</html>

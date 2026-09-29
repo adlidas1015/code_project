@@ -1,0 +1,1637 @@
+{
+ "url": "https://www.dasandmc.com/kor/esg/social.html",
+ "title": "ESG:사회책임경영",
+ "scrollHeight": 3753,
+ "imgs": [
+  {
+   "src": "https://www.dasandmc.com/kor/images/logo.png",
+   "alt": "",
+   "nat": [
+    285,
+    30
+   ],
+   "box": {
+    "x": 313,
+    "y": 40,
+    "w": 190,
+    "h": 20
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/lan_img.png",
+   "alt": "",
+   "nat": [
+    17,
+    17
+   ],
+   "box": {
+    "x": 1473,
+    "y": 39.0625,
+    "w": 17,
+    "h": 17
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/home.jpg",
+   "alt": "",
+   "nat": [
+    18,
+    14
+   ],
+   "box": {
+    "x": 333,
+    "y": 356,
+    "w": 20,
+    "h": 15.546875
+   }
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/flogo.png",
+   "alt": "",
+   "nat": [
+    230,
+    24
+   ],
+   "box": {
+    "x": 313,
+    "y": 3537.1875,
+    "w": 230,
+    "h": 24
+   }
+  }
+ ],
+ "bgs": [
+  {
+   "src": "https://www.dasandmc.com/kor/images/sub_main1.jpg",
+   "box": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 339
+   },
+   "cls": "sub_main01"
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/navi_bg.png",
+   "box": {
+    "x": 373,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "cls": ""
+  },
+  {
+   "src": "https://www.dasandmc.com/kor/images/navi_bg.png",
+   "box": {
+    "x": 623,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "cls": ""
+  }
+ ],
+ "texts": [
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ABOUT DASAN DMC",
+   "box": {
+    "x": 563,
+    "y": 30,
+    "w": 166,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "AUTOMOTIVE",
+   "box": {
+    "x": 763,
+    "y": 30,
+    "w": 111,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "NAVIGATION / IT",
+   "box": {
+    "x": 923,
+    "y": 30,
+    "w": 131,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "TECHNOLOGY",
+   "box": {
+    "x": 1093,
+    "y": 30,
+    "w": 115,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ESG",
+   "box": {
+    "x": 1263,
+    "y": 30,
+    "w": 33,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "IR",
+   "box": {
+    "x": 1373,
+    "y": 30,
+    "w": 17,
+    "h": 40
+   },
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "div",
+   "cls": "m_box",
+   "own": "LANGUAGE",
+   "box": {
+    "x": 1473,
+    "y": 0,
+    "w": 106.625,
+    "h": 100
+   },
+   "size": "15px",
+   "weight": "400",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "About us",
+   "box": {
+    "x": 563,
+    "y": 131,
+    "w": 61.046875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Location",
+   "box": {
+    "x": 563,
+    "y": 158,
+    "w": 57.046875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Clients",
+   "box": {
+    "x": 563,
+    "y": 185,
+    "w": 45.171875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Suspension Parts",
+   "box": {
+    "x": 763,
+    "y": 131,
+    "w": 112.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Steering Parts",
+   "box": {
+    "x": 763,
+    "y": 158,
+    "w": 91.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Weather Strips",
+   "box": {
+    "x": 763,
+    "y": 185,
+    "w": 97.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Electric Unit",
+   "box": {
+    "x": 763,
+    "y": 212,
+    "w": 80.453125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Others",
+   "box": {
+    "x": 763,
+    "y": 239,
+    "w": 44.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Hybrid Navigation",
+   "box": {
+    "x": 923,
+    "y": 131,
+    "w": 120.96875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Connected ADAS",
+   "box": {
+    "x": 923,
+    "y": 158,
+    "w": 117.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Over-the-Air",
+   "box": {
+    "x": 923,
+    "y": 185,
+    "w": 82.5625,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Telematics",
+   "box": {
+    "x": 923,
+    "y": 212,
+    "w": 68.8125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Mobility Platform",
+   "box": {
+    "x": 923,
+    "y": 239,
+    "w": 117.96875,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "CAE Capability",
+   "box": {
+    "x": 1093,
+    "y": 131,
+    "w": 100.328125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Testing Capability",
+   "box": {
+    "x": 1093,
+    "y": 158,
+    "w": 116.84375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "New Developments",
+   "box": {
+    "x": 1093,
+    "y": 185,
+    "w": 132.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "Measuring Device",
+   "box": {
+    "x": 1093,
+    "y": 212,
+    "w": 120.09375,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "ESG 전략",
+   "box": {
+    "x": 1263,
+    "y": 131,
+    "w": 60.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "환경경영",
+   "box": {
+    "x": 1263,
+    "y": 158,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "사회책임경영",
+   "box": {
+    "x": 1263,
+    "y": 185,
+    "w": 83.28125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "투명경영",
+   "box": {
+    "x": 1263,
+    "y": 212,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "라이브러리",
+   "box": {
+    "x": 1263,
+    "y": 239,
+    "w": 69.40625,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "공지사항",
+   "box": {
+    "x": 1373,
+    "y": 131,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "공시정보",
+   "box": {
+    "x": 1373,
+    "y": 158,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "주가정보",
+   "box": {
+    "x": 1373,
+    "y": 185,
+    "w": 55.53125,
+    "h": 17
+   },
+   "size": "15px",
+   "weight": "300",
+   "color": "rgb(71, 71, 71)"
+  },
+  {
+   "tag": "div",
+   "cls": "sub_main01",
+   "own": "사회책임경영",
+   "box": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 339
+   },
+   "size": "50px",
+   "weight": "200",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "ESG",
+   "box": {
+    "x": 373,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(75, 75, 75)"
+  },
+  {
+   "tag": "button",
+   "cls": "",
+   "own": "사회책임경영",
+   "box": {
+    "x": 623,
+    "y": 339,
+    "w": 250,
+    "h": 49
+   },
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(75, 75, 75)"
+  },
+  {
+   "tag": "div",
+   "cls": "v",
+   "own": "3년",
+   "box": {
+    "x": 435,
+    "y": 478,
+    "w": 216.5,
+    "h": 33.59375
+   },
+   "size": "32px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "div",
+   "cls": "l",
+   "own": "무재해 (2021~23)",
+   "box": {
+    "x": 435,
+    "y": 520.59375,
+    "w": 216.5,
+    "h": 21.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "div",
+   "cls": "v",
+   "own": "0",
+   "box": {
+    "x": 712.5,
+    "y": 478,
+    "w": 216.5,
+    "h": 33.59375
+   },
+   "size": "32px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "div",
+   "cls": "l",
+   "own": "중대재해",
+   "box": {
+    "x": 712.5,
+    "y": 520.59375,
+    "w": 216.5,
+    "h": 21.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "div",
+   "cls": "v",
+   "own": "0.46%",
+   "box": {
+    "x": 990,
+    "y": 478,
+    "w": 216.5,
+    "h": 33.59375
+   },
+   "size": "32px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "div",
+   "cls": "l",
+   "own": "평균 재해율",
+   "box": {
+    "x": 990,
+    "y": 520.59375,
+    "w": 216.5,
+    "h": 21.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "div",
+   "cls": "v",
+   "own": "ISO 45001",
+   "box": {
+    "x": 1267.5,
+    "y": 478,
+    "w": 217.5,
+    "h": 33.59375
+   },
+   "size": "32px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "div",
+   "cls": "l",
+   "own": "안전보건 인증",
+   "box": {
+    "x": 1267.5,
+    "y": 520.59375,
+    "w": 217.5,
+    "h": 21.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "div",
+   "cls": "big",
+   "own": "“ 안전하고 건강한 일터, 사람을 먼저 생각하는 책임경영 ”",
+   "box": {
+    "x": 430,
+    "y": 639.1875,
+    "w": 1086,
+    "h": 36
+   },
+   "size": "24px",
+   "weight": "700",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "div",
+   "cls": "sub",
+   "own": "다산디엠씨는 임직원·협력사·지역사회 모든 이해관계자의 안전과 인권을 최우선 가치로 삼아, 사람 중심의 책임경영을 실천합니다. (안전보건 경영 정책 ESHP-OHS-POL-01)",
+   "box": {
+    "x": 430,
+    "y": 687.1875,
+    "w": 1086,
+    "h": 52.6875
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(105, 114, 127)"
+  },
+  {
+   "tag": "span",
+   "cls": "n",
+   "own": "01",
+   "box": {
+    "x": 404,
+    "y": 871.875,
+    "w": 17.046875,
+    "h": 20.796875
+   },
+   "size": "13px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "h2",
+   "cls": "",
+   "own": "안전보건경영 방침 (5대 원칙)",
+   "box": {
+    "x": 404,
+    "y": 902.671875,
+    "w": 1112,
+    "h": 46.390625
+   },
+   "size": "29px",
+   "weight": "800",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "현장과 사람 중심의 안전경영을 최우선 가치로 정한다",
+   "box": {
+    "x": 404,
+    "y": 977.0625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "모두의 자발적 참여로 안전문화를 내재화한다",
+   "box": {
+    "x": 404,
+    "y": 1015.171875,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "다양한 관점·창의적 접근으로 진보된 안전체계를 발전시킨다",
+   "box": {
+    "x": 404,
+    "y": 1053.28125,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "법적·사회적 요구수준 이상의 안전 실천으로 사회적 기대를 만족한다",
+   "box": {
+    "x": 404,
+    "y": 1091.390625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "협력사·도급사 근로자에게도 동일한 안전보건 기준을 적용해 동반성장을 이끈다",
+   "box": {
+    "x": 404,
+    "y": 1129.5,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "span",
+   "cls": "n",
+   "own": "02",
+   "box": {
+    "x": 404,
+    "y": 1282.609375,
+    "w": 17.046875,
+    "h": 20.796875
+   },
+   "size": "13px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "h2",
+   "cls": "",
+   "own": "안전보건 추진체계·핵심 활동",
+   "box": {
+    "x": 404,
+    "y": 1313.40625,
+    "w": 1112,
+    "h": 46.390625
+   },
+   "size": "29px",
+   "weight": "800",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "ISO 45001 기반 PDCA · CSEO 보고체계 · 산업안전보건위원회(노사 동수) · 안전 KPI 28종(K-01~K-28)",
+   "box": {
+    "x": 404,
+    "y": 1387.796875,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "7대 고위험작업 안전작업허가제(Permit-to-Work) 의무 적용",
+   "box": {
+    "x": 404,
+    "y": 1425.90625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "위험 통제계층 5단계 : 제거 → 대체 → 공학적 → 행정적 → PPE",
+   "box": {
+    "x": 404,
+    "y": 1464.015625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "정기·수시 위험성평가 정례화, 아차사고 발굴",
+   "box": {
+    "x": 404,
+    "y": 1502.125,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "작업환경측정 · 일반/특수 건강진단 · 근골격계 예방 · 비상대응 훈련 · LOTO · 보호구 점검",
+   "box": {
+    "x": 404,
+    "y": 1540.234375,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "span",
+   "cls": "n",
+   "own": "03",
+   "box": {
+    "x": 404,
+    "y": 1693.34375,
+    "w": 17.046875,
+    "h": 20.796875
+   },
+   "size": "13px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "h2",
+   "cls": "",
+   "own": "안전보건 성과 (직접고용 기준)",
+   "box": {
+    "x": 404,
+    "y": 1724.140625,
+    "w": 1112,
+    "h": 46.390625
+   },
+   "size": "29px",
+   "weight": "800",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "th",
+   "cls": "",
+   "own": "항목",
+   "box": {
+    "x": 405,
+    "y": 1799.53125,
+    "w": 399.640625,
+    "h": 46.5
+   },
+   "size": "13.5px",
+   "weight": "600",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "th",
+   "cls": "",
+   "own": "2022",
+   "box": {
+    "x": 804.640625,
+    "y": 1799.53125,
+    "w": 157.71875,
+    "h": 46.5
+   },
+   "size": "13.5px",
+   "weight": "600",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "th",
+   "cls": "",
+   "own": "2023",
+   "box": {
+    "x": 962.359375,
+    "y": 1799.53125,
+    "w": 157.71875,
+    "h": 46.5
+   },
+   "size": "13.5px",
+   "weight": "600",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "th",
+   "cls": "",
+   "own": "2024",
+   "box": {
+    "x": 1120.078125,
+    "y": 1799.53125,
+    "w": 197.4375,
+    "h": 46.5
+   },
+   "size": "13.5px",
+   "weight": "600",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "th",
+   "cls": "",
+   "own": "2025",
+   "box": {
+    "x": 1317.515625,
+    "y": 1799.53125,
+    "w": 197.484375,
+    "h": 46.5
+   },
+   "size": "13.5px",
+   "weight": "600",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "LTIFR (휴업재해율, 20만 시간)",
+   "box": {
+    "x": 405,
+    "y": 1846.03125,
+    "w": 399.640625,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "600",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0",
+   "box": {
+    "x": 804.640625,
+    "y": 1846.03125,
+    "w": 157.71875,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0",
+   "box": {
+    "x": 962.359375,
+    "y": 1846.03125,
+    "w": 157.71875,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0.865",
+   "box": {
+    "x": 1120.078125,
+    "y": 1846.03125,
+    "w": 197.4375,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0.463",
+   "box": {
+    "x": 1317.515625,
+    "y": 1846.03125,
+    "w": 197.484375,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "중대재해 (사망 등)",
+   "box": {
+    "x": 405,
+    "y": 1891.03125,
+    "w": 399.640625,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "600",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0",
+   "box": {
+    "x": 804.640625,
+    "y": 1891.03125,
+    "w": 157.71875,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0",
+   "box": {
+    "x": 962.359375,
+    "y": 1891.03125,
+    "w": 157.71875,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0",
+   "box": {
+    "x": 1120.078125,
+    "y": 1891.03125,
+    "w": 197.4375,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0",
+   "box": {
+    "x": 1317.515625,
+    "y": 1891.03125,
+    "w": 197.484375,
+    "h": 45
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "재해율(%) ― 당사 / 동종평균",
+   "box": {
+    "x": 405,
+    "y": 1936.03125,
+    "w": 399.640625,
+    "h": 44.5
+   },
+   "size": "12px",
+   "weight": "600",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0 / 0.60",
+   "box": {
+    "x": 804.640625,
+    "y": 1936.03125,
+    "w": 157.71875,
+    "h": 44.5
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0 / 0.59",
+   "box": {
+    "x": 962.359375,
+    "y": 1936.03125,
+    "w": 157.71875,
+    "h": 44.5
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0.93 / 0.63",
+   "box": {
+    "x": 1120.078125,
+    "y": 1936.03125,
+    "w": 197.4375,
+    "h": 44.5
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "td",
+   "cls": "",
+   "own": "0.45 / 0.48",
+   "box": {
+    "x": 1317.515625,
+    "y": 1936.03125,
+    "w": 197.484375,
+    "h": 44.5
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "div",
+   "cls": "note",
+   "own": "※ 중대재해 0건을 지속 유지하고 있으며, 3년 평균 재해율 0.46%로 동종업계 평균(0.61%)을 하회합니다. 임직원 안전을 최우선으로 무재해 사업장을 추진합니다.",
+   "box": {
+    "x": 404,
+    "y": 1981.53125,
+    "w": 1112,
+    "h": 53.59375
+   },
+   "size": "13.5px",
+   "weight": "400",
+   "color": "rgb(110, 94, 55)"
+  },
+  {
+   "tag": "span",
+   "cls": "n",
+   "own": "04",
+   "box": {
+    "x": 404,
+    "y": 2163.125,
+    "w": 17.046875,
+    "h": 20.796875
+   },
+   "size": "13px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "h2",
+   "cls": "",
+   "own": "인권경영 ― 인권헌장 11대 선언",
+   "box": {
+    "x": 404,
+    "y": 2193.921875,
+    "w": 1112,
+    "h": 46.390625
+   },
+   "size": "29px",
+   "weight": "800",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "결사·단체교섭의 자유 보장, 국제 인권규범 지지",
+   "box": {
+    "x": 404,
+    "y": 2268.3125,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "아동노동·강제노동 불허",
+   "box": {
+    "x": 404,
+    "y": 2306.421875,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "학력·종교·인종·성별·지역·장애·정치적 견해 등 차별 금지, 다양성 존중",
+   "box": {
+    "x": 404,
+    "y": 2344.53125,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "직원 건강권·산업안전 보장, 인권침해 예방 및 신속한 구제조치 제공",
+   "box": {
+    "x": 404,
+    "y": 2382.640625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "임직원 사생활 존중, 국내외 지역주민 인권 존중",
+   "box": {
+    "x": 404,
+    "y": 2420.75,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "span",
+   "cls": "n",
+   "own": "05",
+   "box": {
+    "x": 404,
+    "y": 2573.859375,
+    "w": 17.046875,
+    "h": 20.796875
+   },
+   "size": "13px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "h2",
+   "cls": "",
+   "own": "동반성장 (공급망 책임)",
+   "box": {
+    "x": 404,
+    "y": 2604.65625,
+    "w": 1112,
+    "h": 46.390625
+   },
+   "size": "29px",
+   "weight": "800",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "협력사 행동규범 운영 ― 협력사에 안전·환경·인권 기준 공유·권장",
+   "box": {
+    "x": 404,
+    "y": 2679.046875,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "협력사에 동일한 안전보건 기준 적용, 안전 예방점검·안전신기술 도입 공동 추진",
+   "box": {
+    "x": 404,
+    "y": 2717.15625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "협력사 ISO 14001 인증 확대 지원(3년 100% 목표)",
+   "box": {
+    "x": 404,
+    "y": 2755.265625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "span",
+   "cls": "n",
+   "own": "06",
+   "box": {
+    "x": 404,
+    "y": 2908.375,
+    "w": 17.046875,
+    "h": 20.796875
+   },
+   "size": "13px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "h2",
+   "cls": "",
+   "own": "정보보호",
+   "box": {
+    "x": 404,
+    "y": 2939.171875,
+    "w": 1112,
+    "h": 46.390625
+   },
+   "size": "29px",
+   "weight": "800",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "고객의 알 권리 보장 및 업무상 수집 정보의 적극 보호(인권헌장)",
+   "box": {
+    "x": 404,
+    "y": 3013.5625,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "DMC 정보보안규정 운영을 통한 고객·임직원 정보자산 보호",
+   "box": {
+    "x": 404,
+    "y": 3051.671875,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "span",
+   "cls": "n",
+   "own": "07",
+   "box": {
+    "x": 404,
+    "y": 3204.78125,
+    "w": 17.046875,
+    "h": 20.796875
+   },
+   "size": "13px",
+   "weight": "800",
+   "color": "rgb(28, 111, 176)"
+  },
+  {
+   "tag": "h2",
+   "cls": "",
+   "own": "사회 인증·평가",
+   "box": {
+    "x": 404,
+    "y": 3235.578125,
+    "w": 1112,
+    "h": 46.390625
+   },
+   "size": "29px",
+   "weight": "800",
+   "color": "rgb(21, 35, 63)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "ISO 45001 안전보건경영시스템 인증",
+   "box": {
+    "x": 404,
+    "y": 3309.96875,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "li",
+   "cls": "",
+   "own": "EcoVadis 노동 및 인권 57점(2026.02, Committed)",
+   "box": {
+    "x": 404,
+    "y": 3348.078125,
+    "w": 1112,
+    "h": 25.109375
+   },
+   "size": "15.5px",
+   "weight": "400",
+   "color": "rgb(57, 65, 79)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "FAMILY SITE",
+   "box": {
+    "x": 1407,
+    "y": 3547.1875,
+    "w": 200,
+    "h": 29
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(255, 255, 255)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "다산그룹",
+   "box": {
+    "x": 1434,
+    "y": 3412.1875,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜다산네트웍스",
+   "box": {
+    "x": 1434,
+    "y": 3442.1875,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜다산솔루에타",
+   "box": {
+    "x": 1434,
+    "y": 3472.1875,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "a",
+   "cls": "",
+   "own": "㈜디디에스",
+   "box": {
+    "x": 1434,
+    "y": 3502.1875,
+    "w": 146,
+    "h": 30
+   },
+   "size": "12px",
+   "weight": "400",
+   "color": "rgb(221, 223, 226)"
+  },
+  {
+   "tag": "div",
+   "cls": "",
+   "own": "DASAN DMC HQ:Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-2-1522-9060 FAX : +82-70-5138-1781 Gwacheon Branch : Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-70-4946-7200 FAX : +82-2-504-8535 Yeongchen Factory 1 : 23 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316 Yeongchen Factory 2 : 66, Sehom-gil, Yeongcheon-si, Gyeongsangbuk-do, 38823, Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316 Yeongchen Logistics Center : 17 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7247 FAX : +82-54-336-2316",
+   "box": {
+    "x": 313,
+    "y": 3586.1875,
+    "w": 1294,
+    "h": 127
+   },
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(156, 156, 156)"
+  },
+  {
+   "tag": "b",
+   "cls": "",
+   "own": "ⓒ 2021. DMC CO.,LTD. ALL RIGHTS RESERVED.",
+   "box": {
+    "x": 313,
+    "y": 3695.1875,
+    "w": 263.09375,
+    "h": 14
+   },
+   "size": "12px",
+   "weight": "700",
+   "color": "rgb(156, 156, 156)"
+  }
+ ],
+ "mainText": "ABOUT DASAN DMC\nAUTOMOTIVE\nNAVIGATION / IT\nTECHNOLOGY\nESG\nIR\n  LANGUAGE\n\t\nAbout us\nLocation\nClients\nSuspension Parts\nSteering Parts\nWeather Strips\nElectric Unit\nOthers\nHybrid Navigation\nConnected ADAS\nOver-the-Air\nTelematics\nMobility Platform\nCAE Capability\nTesting Capability\nNew Developments\nMeasuring Device\nESG 전략\n환경경영\n사회책임경영\n투명경영\n라이브러리\n공지사항\n공시정보\n주가정보\n사회책임경영\nESG\n사회책임경영\n3년\n무재해 (2021~23)\n0\n중대재해\n0.46%\n평균 재해율\nISO 45001\n안전보건 인증\n“ 안전하고 건강한 일터, 사람을 먼저 생각하는 책임경영 ”\n다산디엠씨는 임직원·협력사·지역사회 모든 이해관계자의 안전과 인권을 최우선 가치로 삼아, 사람 중심의 책임경영을 실천합니다. (안전보건 경영 정책 ESHP-OHS-POL-01)\n01\n안전보건경영 방침 (5대 원칙)\n현장과 사람 중심의 안전경영을 최우선 가치로 정한다\n모두의 자발적 참여로 안전문화를 내재화한다\n다양한 관점·창의적 접근으로 진보된 안전체계를 발전시킨다\n법적·사회적 요구수준 이상의 안전 실천으로 사회적 기대를 만족한다\n협력사·도급사 근로자에게도 동일한 안전보건 기준을 적용해 동반성장을 이끈다\n02\n안전보건 추진체계·핵심 활동\nISO 45001 기반 PDCA · CSEO 보고체계 · 산업안전보건위원회(노사 동수) · 안전 KPI 28종(K-01~K-28)\n7대 고위험작업 안전작업허가제(Permit-to-Work) 의무 적용\n위험 통제계층 5단계 : 제거 → 대체 → 공학적 → 행정적 → PPE\n정기·수시 위험성평가 정례화, 아차사고 발굴\n작업환경측정 · 일반/특수 건강진단 · 근골격계 예방 · 비상대응 훈련 · LOTO · 보호구 점검\n03\n안전보건 성과 (직접고용 기준)\n항목\t2022\t2023\t2024\t2025\nLTIFR (휴업재해율, 20만 시간)\t0\t0\t0.865\t0.463\n중대재해 (사망 등)\t0\t0\t0\t0\n재해율(%) ― 당사 / 동종평균\t0 / 0.60\t0 / 0.59\t0.93 / 0.63\t0.45 / 0.48\n※ 중대재해 0건을 지속 유지하고 있으며, 3년 평균 재해율 0.46%로 동종업계 평균(0.61%)을 하회합니다. 임직원 안전을 최우선으로 무재해 사업장을 추진합니다.\n04\n인권경영 ― 인권헌장 11대 선언\n결사·단체교섭의 자유 보장, 국제 인권규범 지지\n아동노동·강제노동 불허\n학력·종교·인종·성별·지역·장애·정치적 견해 등 차별 금지, 다양성 존중\n직원 건강권·산업안전 보장, 인권침해 예방 및 신속한 구제조치 제공\n임직원 사생활 존중, 국내외 지역주민 인권 존중\n05\n동반성장 (공급망 책임)\n협력사 행동규범 운영 ― 협력사에 안전·환경·인권 기준 공유·권장\n협력사에 동일한 안전보건 기준 적용, 안전 예방점검·안전신기술 도입 공동 추진\n협력사 ISO 14001 인증 확대 지원(3년 100% 목표)\n06\n정보보호\n고객의 알 권리 보장 및 업무상 수집 정보의 적극 보호(인권헌장)\nDMC 정보보안규정 운영을 통한 고객·임직원 정보자산 보호\n07\n사회 인증·평가\nISO 45001 안전보건경영시스템 인증\nEcoVadis 노동 및 인권 57점(2026.02, Committed)\n FAMILY SITE\n다산그룹\n㈜다산네트웍스\n㈜다산솔루에타\n㈜디디에스\nDASAN DMC HQ:Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-2-1522-9060 FAX : +82-70-5138-1781\nGwacheon Branch : Room 401, 4th Fl., Smart K B-Tower, 26, Gwacheon-daero 7-gil, Gwacheon-si, Gyeonggi-do, Republic of Korea (13840) | TEL : +82-70-4946-7200 FAX : +82-2-504-8535\nYeongchen Factory 1 : 23 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316\nYeongchen Factory 2 : 66, Sehom-gil, Yeongcheon-si, Gyeongsangbuk-do, 38823, Rep. of KOREA | TEL : +82-70-4946-7300 FAX : +82-54-336-2316\nYeongchen Logistics Center : 17 UnhaGongDan 1-gil, Yeongcheon-si GyeongsangBuk-do,38828,Rep. of KOREA | TEL : +82-70-4946-7247 FAX : +82-54-336-2316\nⓒ 2021. DMC CO.,LTD. ALL RIGHTS RESERVED.",
+ "local": {
+  "https://www.dasandmc.com/kor/images/logo.png": "img/images__logo.png",
+  "https://www.dasandmc.com/kor/images/lan_img.png": "img/images__lan_img.png",
+  "https://www.dasandmc.com/kor/images/l_02.jpg": "img/images__l_02.jpg",
+  "https://www.dasandmc.com/kor/images/lan_img2.png": "img/images__lan_img2.png",
+  "https://www.dasandmc.com/kor/images/m_menu.png": "img/images__m_menu.png",
+  "https://www.dasandmc.com/kor/images/eng.jpg": "img/images__eng.jpg",
+  "https://www.dasandmc.com/kor/images/home.jpg": "img/images__home.jpg",
+  "https://www.dasandmc.com/kor/images/flogo.png": "img/images__flogo.png",
+  "https://www.dasandmc.com/kor/images/sub_main1.jpg": "img/images__sub_main1.jpg",
+  "https://www.dasandmc.com/kor/images/navi_bg.png": "img/images__navi_bg.png",
+  "https://www.dasandmc.com/kor/images/close.png": "img/images__close.png"
+ }
+}
