@@ -1,0 +1,4 @@
+out/.tmp/
+out/still_*.png
+out/bench*.mp4
+__pycache__/
