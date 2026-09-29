@@ -4,7 +4,7 @@
 
 | 버전 | 파일 | 방식 |
 |---|---|---|
-| **v2 · 30초 (최신)** | `out/dasandmc_esg_film_30s.mp4`, `out/storyboard30.jpg` | 웹페이지 캡처 없이 ESG 내용만 가져와 그래픽을 직접 설계 |
+| **v2 · 30초 (최신)** | `out/dasandmc_esg_film_30s.mp4`(마스터 46MB), `out/dasandmc_esg_film_30s_share.mp4`(공유용 25MB), `out/storyboard30.jpg` | 웹페이지 캡처 없이 ESG 내용만 가져와 그래픽을 직접 설계 |
 | v1 · 15초 | `out/dasandmc_esg_reel_15s.mp4`, `out/storyboard.jpg` | 실제 페이지 캡처를 3D 목업으로 활용 |
 
 - 공통 사양: 1920×1080, 60fps, H.264 High / BT.709, AAC 320kbps
