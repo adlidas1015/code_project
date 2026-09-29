@@ -4,7 +4,7 @@
 // Parallel workers render contiguous chunks to lossless RGB segments which are
 // concatenated, colour-converted to BT.709 and muxed with the score.
 //
-//   node scripts/render.mjs [--fps 60] [--sub 3] [--workers 4] [--from 0] [--to 15]
+//   node scripts/render.mjs [--scene scene] [--audio out/music.wav] [--fps 60] [--sub 3] [--workers 4] [--from 0] [--to 15]
 //                           [--out out/reel.mp4] [--stills 1.2,4.0]
 import { createRequire } from 'node:module';
 import { spawn } from 'node:child_process';
@@ -26,6 +26,8 @@ const T0 = +arg('from', 0);
 const T1 = +arg('to', 15);
 const OUTF = path.resolve(ROOT, arg('out', 'out/reel.mp4'));
 const STILLS = arg('stills', null);
+const SCENE = arg('scene', 'scene');          // folder holding index.html
+const AUDIO = arg('audio', 'out/music.wav');
 const SHUTTER = 0.5; // 180°
 const TMP = path.join(ROOT, 'out', '.tmp');
 fs.mkdirSync(TMP, { recursive: true });
@@ -53,7 +55,7 @@ async function openPage() {
   const page = await ctx.newPage();
   page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') console.log('[page]', m.text()); });
   page.on('pageerror', (e) => console.log('[pageerror]', e.message));
-  await page.goto(`http://127.0.0.1:${PORT}/scene/index.html?render=1`);
+  await page.goto(`http://127.0.0.1:${PORT}/${SCENE}/index.html?render=1`);
   await page.waitForFunction(() => window.__ready === true, null, { timeout: 60000 });
   const cdp = await ctx.newCDPSession(page);
   return { page, cdp };
@@ -116,7 +118,7 @@ server.close();
 
 const list = path.join(TMP, 'list.txt');
 fs.writeFileSync(list, segs.map((s) => `file '${s}'`).join('\n'));
-const audio = path.join(ROOT, 'out', 'music.wav');
+const audio = path.resolve(ROOT, AUDIO);
 const args = ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', list];
 const withAudio = fs.existsSync(audio);
 if (withAudio) args.push('-ss', String(T0), '-t', String(T1 - T0), '-i', audio);
