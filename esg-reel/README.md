@@ -1,14 +1,29 @@
 # DASAN DMC · ESG 모션 그래픽
 
-`https://www.dasandmc.com/kor/esg/esg.html`(다산디엠씨 ESG 경영)의 내용을 소개하는 영상 2종.
+`https://www.dasandmc.com/kor/esg/esg.html`(다산디엠씨 ESG 경영)의 내용을 소개하는 영상 3종.
 
 | 버전 | 파일 | 방식 |
 |---|---|---|
-| **v2 · 30초 (최신)** | `out/dasandmc_esg_film_30s.mp4`(마스터 46MB), `out/dasandmc_esg_film_30s_share.mp4`(공유용 25MB), `out/storyboard30.jpg` | 웹페이지 캡처 없이 ESG 내용만 가져와 그래픽을 직접 설계 |
+| **v3 · 60초 (최신)** | `out/dasandmc_esg_film_60s.mp4`(마스터), `out/dasandmc_esg_film_60s_share.mp4`(공유용), `out/storyboard60.jpg` | v2와 같은 디자인·내용, 장면별 노출 시간 2배 + 글자 확대 |
+| v2 · 30초 | `out/dasandmc_esg_film_30s.mp4`(마스터 46MB), `out/dasandmc_esg_film_30s_share.mp4`(공유용 25MB), `out/storyboard30.jpg` | 웹페이지 캡처 없이 ESG 내용만 가져와 그래픽을 직접 설계 |
 | v1 · 15초 | `out/dasandmc_esg_reel_15s.mp4`, `out/storyboard.jpg` | 실제 페이지 캡처를 3D 목업으로 활용 |
 
 - 공통 사양: 1920×1080, 60fps, H.264 High / BT.709, AAC 320kbps
 - 음악: 샘플 없이 직접 합성한 원곡이라 라이선스 이슈가 없음. −13.6 LUFS, true-peak −1 dBTP 이하.
+
+## v3 · 60초 (128 BPM, 32마디 = 60.000초)
+
+- 템포는 그대로 두고 마디 수를 2배로 늘림. 모든 장면의 노출 시간이 v2의 2배.
+- 장면 구성과 순서는 아래 v2 표와 같고, 시각은 v2의 2배.
+- 요소 등장 간격을 1박 → 2박으로 늘림.
+- 작은 글씨(레이블·설명·칩)를 10~15% 키움.
+- 음악(`audio/compose60.py`)은 60초용으로 새로 편곡. 길어진 그루브가 단조롭지 않도록 구간별 변주를 넣음:
+  - 2마디마다 필인과 크래시
+  - 사회 구간: 오프비트 코드 스탭
+  - 투명 구간: 벨 카운터멜로디
+- 재현:
+  - `python3 audio/compose60.py`
+  - `node scripts/render.mjs --scene scene60 --audio out/music60.wav --to 60 --sub 3 --out out/dasandmc_esg_film_60s.mp4`
 
 ## v2 · 30초 구성 (128 BPM, 16마디 = 30.000초)
 
@@ -24,7 +39,7 @@
 | 24.4–28.1 | 파이널 드롭 | ESG 목표·핵심 KPI | 비트마다 풀스크린 카드 8장 (0건, 100%, 75개, Scope 1+2) | strategy, environment |
 | 28.1–30.0 | 엔딩 | 엔드카드 | 로고, 슬로건, URL | esg |
 
-## 콘텐츠 원칙 (v1·v2 공통)
+## 콘텐츠 원칙 (전 버전 공통)
 
 - 문구·수치는 사이트 원문 그대로 사용 (2026-09-29 수집).
 - 예외 1건: "EcoVadis Committed 메달"은 "Committed 배지"로 표기.
