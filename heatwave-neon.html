@@ -1,0 +1,1290 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>폭염 온열질환 예방</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+  :root { --bg: #000; --panel: #0B0E18; --line: #24345C; --text: #EAF6FF; --accent: #35E0FF; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); overflow: hidden;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  #wrap { height: 100%; box-sizing: border-box; padding: 12px 16px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 10px; }
+  #stage { display: block; background: #06070C; box-shadow: 0 0 0 1px #16203A; }
+  #bar { display: flex; align-items: center; gap: 12px; height: 44px; box-sizing: border-box; padding: 0 12px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  #play { flex: none; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--accent);
+    background: transparent; color: var(--accent); cursor: pointer; display: grid; place-items: center; padding: 0; }
+  #play:focus-visible, #seek:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #play svg { width: 14px; height: 14px; fill: currentColor; }
+  #seek { flex: 1; min-width: 0; accent-color: var(--accent); cursor: pointer; }
+  #time { flex: none; font-variant-numeric: tabular-nums; font-size: 13px; color: #9FB3D1; min-width: 86px; text-align: right; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="stage" width="1080" height="1920" aria-label="폭염 온열질환 예방 네온 모션그래픽"></canvas>
+  <div id="bar">
+    <button id="play" type="button" aria-label="일시정지"></button>
+    <input id="seek" type="range" min="0" max="60" step="0.01" value="0" aria-label="재생 위치">
+    <span id="time">0.0 / 60.0</span>
+  </div>
+</div>
+<script>
+'use strict';
+/* =====================================================================
+   0. 설정 — 문구 · 색 · 장면 시간표 · 카메라 위치
+   ===================================================================== */
+const W = 1080, H = 1920, DURATION = 60;          // 화면(세로) · 길이(초)
+const BOARD = { w: 1200, h: 6900 };               // 무대 판 크기
+
+// ── 색 ──
+const C = {
+  bg: '#06070C', grid: '#16203A', gridMajor: '#24345C',
+  white: '#EAF6FF', cyan: '#35E0FF', yellow: '#FFD23F', orange: '#FF8A2B', red: '#FF3B4E', mint: '#5CFFB0',
+};
+
+// ── 문구 (x, y = 판 좌표, 가운데 기준 / t = 켜지기 시작하는 시각) ──
+const TEXT = {
+  hot: '폭염',                                     // 노랑으로 켜지는 글자
+  title1:   { str: '폭염',               x: 600, y: 290,  size: 150, t: 0.0 },
+  title2:   { str: '온열질환 예방',      x: 600, y: 440,  size: 92,  t: 0.7 },
+  subtitle: { str: '다섯 가지 기본수칙', x: 600, y: 590,  size: 48,  t: 2.2 },
+  labels: [
+    { n: 1, str: '뜨거운 햇볕',          x: 520, y: 1490, size: 70, t: 5.85 },
+    { n: 2, str: '몸이 보내는 신호',     x: 760, y: 2330, size: 60, t: 12.05 },
+    { n: 3, str: '시원한 물',            x: 520, y: 3130, size: 70, t: 18.15 },
+    { n: 4, str: '바람 · 그늘',          x: 680, y: 3950, size: 70, t: 24.15 },
+    { n: 5, str: '규칙적인 휴식',        x: 520, y: 4770, size: 66, t: 30.3 },
+    { n: 6, str: '보냉장구',             x: 680, y: 5590, size: 70, t: 36.35 },
+    { n: 7, str: '응급조치 · 119 신고',  x: 600, y: 6290, size: 58, t: 42.45 },
+  ],
+  signals: ['어지럼', '두통', '땀 범벅', '근육 경련'],
+  call: '119',
+  endTitle: { str: '폭염 온열질환 예방',              x: 600, y: 6480, size: 84, t: 53.75 },
+  sign:     { str: '물 · 바람 · 휴식, 오늘도 무사히', x: 600, y: 6740, size: 34, t: 57.7 },
+};
+const TEXT_RATE = 9;                               // 1초에 켜지는 글자 수
+
+// ── 장면 시간표 (초) ──
+const TL = {
+  titleLine: [1.05, 1.5],                          // 제목 밑줄
+  land: [1.35, 1.8],                               // 주인공 낙하·착지
+  // 경로 이동 (seg = 경로 구간 번호)
+  moves: [
+    { seg: 0, t0: 3.3,   t1: 5.3,  style: 'hop',    hops: 5, h: 52 },
+    { seg: 1, t0: 10.8,  t1: 11.6, style: 'wobble' },
+    { seg: 2, t0: 17.0,  t1: 17.7, style: 'limp' },
+    { seg: 3, t0: 23.0,  t1: 23.8, style: 'hop',    hops: 3, h: 46 },
+    { seg: 4, t0: 29.1,  t1: 29.9, style: 'hop',    hops: 3, h: 46 },
+    { seg: 5, t0: 35.45, t1: 36.0, style: 'hop',    hops: 2, h: 44 },
+    { seg: 6, t0: 41.2,  t1: 42.0, style: 'run',    hops: 8, h: 14 },
+  ],
+  // 체온(테두리 색): [시작, 끝, 이전 색, 다음 색, 방식]
+  temp: [
+    [8.4, 9.4, 'cyan', 'yellow'],
+    [9.5, 10.5, 'yellow', 'orange'],
+    [12.2, 13.3, 'orange', 'red'],
+    [20.3, 21.7, 'red', 'orange', 'gulp'],
+    [27.3, 28.7, 'orange', 'yellow'],
+    [32.2, 34.6, 'yellow', 'cyan'],
+  ],
+  // ① 햇볕
+  sun: [5.1, 5.5], sunRays: [5.5, 6.2], sunTurn: 8,
+  heat: [6.3, 7.9],
+  thermo: [7.2, 7.8], thermoFill: [7.8, 9.6],
+  mouthWave: [8.4, 10.5], sweat: [8.9, 9.5, 10.1],
+  // ② 몸의 신호
+  stars: [12.2, 13.3], tremble: [12.2, 13.3],
+  signals: [13.7, 14.4, 15.1, 15.8],
+  warn: [16.2, 17.0],
+  // ③ 물
+  water: [17.8, 18.8], pour: [18.9, 20.1], drink: [20.3, 21.7], gulps: [20.65, 21.05, 21.45],
+  refill: [21.8, 22.9], again: [22.2, 22.9],
+  // ④ 바람·그늘
+  shade: [23.9, 25.0], beams: [25.1, 26.1], fan: [26.0, 27.2], wind: [27.0, 28.9],
+  // ⑤ 휴식
+  bench: [30.0, 30.9], sit: [31.0, 31.5], clock: [31.6, 34.4],
+  capOff: [32.4, 32.9], breathe: [33.0, 35.1], capOn: [35.2, 35.45],
+  // ⑥ 보냉장구
+  shelf: [36.0, 36.8], gear: [37.0, 37.9, 38.8], gearFly: 0.45, shield: [39.7, 41.0],
+  // ⑦ 응급조치
+  mate: [41.7, 42.6], tap: [42.8, 43.6], call: [43.7, 45.0], aid: [45.1, 46.4], calm: [46.5, 47.4],
+  // 마무리
+  recap: [48.25, 51.4], checks: 49.5, checkGap: 0.45,
+  icons: 55.1, iconGap: 0.45, endLine: [57.4, 58.2], endHop: [57.4, 58.2],
+};
+
+// ── 카메라 (t: 도착 시각, x·y: 바라보는 곳, z: 확대 배율, ease: 움직이는 방식) ──
+const CAMERA = [
+  { t: 0.00,  x: 610, y: 420,  z: 1.28, ease: '시작' },
+  { t: 3.10,  x: 610, y: 500,  z: 1.18, ease: '천천히' },
+  { t: 5.35,  x: 470, y: 1230, z: 1.14, ease: '휙' },
+  { t: 10.70, x: 465, y: 1245, z: 1.22, ease: '천천히' },
+  { t: 11.55, x: 720, y: 2050, z: 1.15, ease: '가속' },
+  { t: 13.20, x: 722, y: 2055, z: 1.19, ease: '천천히' },
+  { t: 13.45, x: 760, y: 1965, z: 1.58, ease: '확 줌인' },
+  { t: 16.90, x: 760, y: 1975, z: 1.66, ease: '천천히' },
+  { t: 17.65, x: 480, y: 2870, z: 1.14, ease: '휙' },
+  { t: 22.90, x: 475, y: 2885, z: 1.22, ease: '천천히' },
+  { t: 23.70, x: 720, y: 3690, z: 1.15, ease: '가속' },
+  { t: 28.95, x: 725, y: 3700, z: 1.23, ease: '천천히' },
+  { t: 29.80, x: 480, y: 4510, z: 1.14, ease: '휙' },
+  { t: 35.05, x: 475, y: 4525, z: 1.22, ease: '천천히' },
+  { t: 35.90, x: 720, y: 5330, z: 1.15, ease: '가속' },
+  { t: 41.10, x: 725, y: 5340, z: 1.23, ease: '천천히' },
+  { t: 41.95, x: 590, y: 6060, z: 1.16, ease: '휙' },
+  { t: 47.45, x: 595, y: 6070, z: 1.24, ease: '천천히' },
+  { t: 48.25, x: 600, y: 3450, z: 0.28, ease: '가속' },
+  { t: 52.55, x: 600, y: 3440, z: 0.29, ease: '천천히' },
+  { t: 53.30, x: 600, y: 6420, z: 1.08, ease: '확 줌인' },
+  { t: 60.00, x: 600, y: 6430, z: 1.13, ease: '천천히' },
+];
+const PARALLAX = { pos: 0.8, zoom: 0.7, bright: 0.12, cool: [28.95, 29.8] };   // 뒤 층: 위치 80%, 확대 70%, 밝기 12% / ⑤ 진입 때 한색으로
+
+// ── 경로선 (제목 밑줄 끝 → 지그재그) ──
+const PATH = [[1000, 505], [440, 1150], [760, 1970], [440, 2790], [760, 3610], [440, 4430], [760, 5250], [430, 5990]];
+
+// ── 소품 위치 (판 좌표) ──
+const POS = {
+  land: [940, 405],
+  sun: { x: 760, y: 900, r: 80 },
+  thermo: { x: 210, y: 1130, h: 260 },
+  signals: [[560, 1800], [960, 1800], [560, 2130], [960, 2130]],
+  jug: { x: 200, y: 2730, h: 280 }, cup: { x: 320, y: 2860 },
+  shade: { left: 540, right: 980, top: [760, 3380], eave: 3455, ground: 3710 },
+  sunbeam: { y: 3150, xs: [630, 695, 760, 825, 890] },
+  fan: { x: 430, y: 3630, r: 75 },
+  bench: { x: 440, y: 4540, w: 320 }, capRest: [565, 4536],
+  clock: { x: 700, y: 4270, r: 85 },
+  shelf: { x: 1010, y: 5200, w: 160 },
+  mate: { x: 730, y: 6040 }, phone: { x: 430, y: 5790 },
+  icons: { xs: [280, 440, 600, 760, 920], y: 6620 },
+  endLine: [220, 980, 6690],
+};
+
+/* =====================================================================
+   1. 엔진 — 수학 · 이징 · 네온 선 · 글자
+   ===================================================================== */
+const cv = document.getElementById('stage');
+const mctx = cv.getContext('2d');
+const buf = document.createElement('canvas'); buf.width = W; buf.height = H;
+const bctx = buf.getContext('2d');                   // 모션 블러용 버퍼
+let ctx = mctx;                                        // 지금 그리는 대상
+for (const c of [mctx, bctx]) { c.lineCap = 'round'; c.lineJoin = 'round'; }
+let T = 0, K = 1, VIEW = { x0: 0, x1: 0, y0: 0, y1: 0 }, fontReady = false;
+
+const TAU = Math.PI * 2;
+const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, u) => a + (b - a) * u;
+const prog = (t, t0, t1) => clamp((t - t0) / (t1 - t0));
+const frac = v => v - Math.floor(v);
+const smooth = (a, b, v) => { const u = clamp((v - a) / (b - a)); return u * u * (3 - 2 * u); };
+const bump = u => (u <= 0 || u >= 1) ? 0 : Math.sin(Math.PI * u);
+const arcH = u => (u <= 0 || u >= 1) ? 0 : 4 * u * (1 - u);          // 포물선 0→1→0
+
+const EASE = {
+  lin: u => u,
+  sine: u => 0.5 - 0.5 * Math.cos(Math.PI * u),
+  inOut: u => u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2,
+  out: u => 1 - Math.pow(1 - u, 3),
+  in: u => u * u * u,
+  // 휙: 빠르게 가서 3.5% 지나쳤다가 살짝 멈칫하며 돌아옴
+  whip: u => u < 0.72 ? 1.035 * EASE.inOut(u / 0.72) : 1.035 - 0.035 * EASE.sine((u - 0.72) / 0.28),
+  // 가속: 점점 빨라졌다가 부드럽게 멈춤
+  accel: u => 1 - Math.pow(1 - Math.pow(u, 2.5), 2),
+  // 확 줌인: 한순간에 당김
+  zoom: u => (1 - Math.pow(2, -12 * u)) / (1 - Math.pow(2, -12)),
+};
+const CAM_EASE = { '시작': EASE.sine, '천천히': EASE.sine, '휙': EASE.whip, '가속': EASE.accel, '확 줌인': EASE.zoom };
+
+// ── 선 번호(난수 대신 이름에서 계산) · 깜빡임 ──
+const idMap = new Map();
+function lineId(key) {
+  let v = idMap.get(key);
+  if (v === undefined) { v = 7; for (let i = 0; i < key.length; i++) v = (v * 31 + key.charCodeAt(i)) % 9973; idMap.set(key, v); }
+  return v;
+}
+function litFlicker(dt) {                    // 다 켜진 직후 0.12초 동안 두 번 파르르
+  if (dt < 0 || dt >= 0.12) return 1;
+  const k = dt / 0.12;
+  return (k < 0.22 || (k > 0.5 && k < 0.72)) ? 0.3 : 1;
+}
+function idleDim(id, t) {                    // 선마다 약 4초에 한 번, 0.08초 동안 밝기 55%
+  const period = 3.7 + (id % 7) * 0.1;
+  const phase = (id * 0.7371) % period;
+  return ((t + phase) % period) < 0.08 ? 0.55 : 1;
+}
+
+// ── 도형 → 꺾은선 점 배열 ──
+const G = {
+  line: (x0, y0, x1, y1) => [[x0, y0], [x1, y1]],
+  arc(cx, cy, r, a0, a1, ry = r) {
+    const n = Math.max(6, Math.min(Math.ceil(Math.abs(a1 - a0) * Math.max(r, ry) / 5), Math.ceil(Math.abs(a1 - a0) * 30)));
+    const p = [];
+    for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * i / n; p.push([cx + Math.cos(a) * r, cy + Math.sin(a) * ry]); }
+    return p;
+  },
+  circle: (cx, cy, r, a0 = -Math.PI / 2) => G.arc(cx, cy, r, a0, a0 + TAU),
+  ellipse: (cx, cy, rx, ry, a0 = -Math.PI / 2) => G.arc(cx, cy, rx, a0, a0 + TAU, ry),
+  rrect(x, y, w, h, r) {
+    const p = [[x + w / 2, y]];
+    const corner = (cx, cy, a0) => { for (let i = 0; i <= 6; i++) { const a = a0 + (Math.PI / 2) * i / 6; p.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); } };
+    corner(x + w - r, y + r, -Math.PI / 2); corner(x + w - r, y + h - r, 0);
+    corner(x + r, y + h - r, Math.PI / 2); corner(x + r, y + r, Math.PI);
+    p.push([x + w / 2, y]);
+    return p;
+  },
+  squircle(cx, cy, a, b, e = 3, seg = 80) {
+    const p = [];
+    for (let i = 0; i <= seg; i++) {
+      const th = -Math.PI / 2 + TAU * i / seg, c = Math.cos(th), s = Math.sin(th);
+      p.push([cx + a * Math.sign(c) * Math.pow(Math.abs(c), 2 / e), cy + b * Math.sign(s) * Math.pow(Math.abs(s), 2 / e)]);
+    }
+    return p;
+  },
+  wave(x0, y0, x1, y1, amp, wl, ph) {
+    const dx = x1 - x0, dy = y1 - y0, d = Math.hypot(dx, dy), ux = dx / d, uy = dy / d, n = Math.ceil(d / 5), p = [];
+    for (let i = 0; i <= n; i++) { const s = d * i / n, o = amp * Math.sin(s / wl * TAU - ph); p.push([x0 + ux * s - uy * o, y0 + uy * s + ux * o]); }
+    return p;
+  },
+  star(cx, cy, r1, r2, rot) {
+    const p = [];
+    for (let i = 0; i <= 10; i++) { const a = rot - Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? r2 : r1; p.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); }
+    return p;
+  },
+  drop(cx, cy, r) {                                    // 끝이 위로 향한 물방울
+    const d = r * 2.1, phi = Math.acos(r / d), p = [[cx, cy - d]];
+    return p.concat(G.arc(cx, cy, r, -Math.PI / 2 + phi, 1.5 * Math.PI - phi), [[cx, cy - d]]);
+  },
+  snow(cx, cy, r, rot) {                               // 눈꽃: 여러 획
+    const out = [];
+    for (let i = 0; i < 6; i++) {
+      const a = rot + i * TAU / 6, c = Math.cos(a), s = Math.sin(a);
+      out.push([[cx, cy], [cx + c * r, cy + s * r]]);
+      const bx = cx + c * r * 0.58, by = cy + s * r * 0.58;
+      out.push([[bx + Math.cos(a + 0.8) * r * 0.32, by + Math.sin(a + 0.8) * r * 0.32], [bx, by], [bx + Math.cos(a - 0.8) * r * 0.32, by + Math.sin(a - 0.8) * r * 0.32]]);
+    }
+    return out;
+  },
+};
+
+// ── 변환 행렬 [a, b, c, d, e, f] : 이동·회전·배율 ──
+function M(tx = 0, ty = 0, rot = 0, sx = 1, sy = 1) {
+  const c = Math.cos(rot), s = Math.sin(rot);
+  return [c * sx, s * sx, -s * sy, c * sy, tx, ty];
+}
+function mul(A, B) {
+  return [A[0] * B[0] + A[2] * B[1], A[1] * B[0] + A[3] * B[1], A[0] * B[2] + A[2] * B[3], A[1] * B[2] + A[3] * B[3],
+    A[0] * B[4] + A[2] * B[5] + A[4], A[1] * B[4] + A[3] * B[5] + A[5]];
+}
+const tf = (p, m) => p.map(([x, y]) => [m[0] * x + m[2] * y + m[4], m[1] * x + m[3] * y + m[5]]);
+const tp = (x, y, m) => [m[0] * x + m[2] * y + m[4], m[1] * x + m[3] * y + m[5]];
+const shift = (p, dx, dy) => p.map(([x, y]) => [x + dx, y + dy]);
+
+// ── 꺾은선 길이 · 부분 잘라내기 ──
+function lengths(p) {
+  const L = [0];
+  for (let i = 1; i < p.length; i++) L.push(L[i - 1] + Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]));
+  return L;
+}
+function pointAt(p, L, s) {
+  if (s <= 0) return p[0].slice();
+  for (let i = 1; i < p.length; i++) {
+    if (s <= L[i]) { const d = L[i] - L[i - 1], u = d > 0 ? (s - L[i - 1]) / d : 0; return [lerp(p[i - 1][0], p[i][0], u), lerp(p[i - 1][1], p[i][1], u)]; }
+  }
+  return p[p.length - 1].slice();
+}
+function sub(p, a, b) {                              // 비율 a~b 구간
+  const L = lengths(p), tot = L[L.length - 1], la = a * tot, lb = b * tot;
+  const out = [pointAt(p, L, la)];
+  for (let i = 1; i < p.length - 1; i++) if (L[i] > la && L[i] < lb) out.push(p[i]);
+  out.push(pointAt(p, L, lb));
+  return out;
+}
+
+// ── 네온 그리기 ──
+function stroke(p, w, color, a) {
+  if (a <= 0.003 || p.length < 2) return;
+  ctx.globalAlpha = Math.min(1, a); ctx.strokeStyle = color; ctx.lineWidth = w;
+  ctx.beginPath(); ctx.moveTo(p[0][0], p[0][1]);
+  for (let i = 1; i < p.length; i++) ctx.lineTo(p[i][0], p[i][1]);
+  ctx.stroke();
+}
+function disc(x, y, r, color, a) {
+  if (a <= 0.003) return;
+  ctx.globalAlpha = Math.min(1, a); ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+}
+// 번짐 22·12%, 9·35%, 본선 3, 흰빛 심지 1 — 배율이 1 아래면 K배로 굵게
+function neonRaw(p, color, b = 1, o = {}) {
+  const k = K * (o.w || 1);
+  stroke(p, 22 * k, color, 0.12 * b);
+  stroke(p, 9 * k, color, 0.35 * b);
+  stroke(p, 3 * k, color, b);
+  if (!o.noCore) stroke(p, 1 * k, C.white, 0.95 * b);
+}
+function headDot(x, y, color, b = 1, s = 1) {       // 선 맨 앞 밝은 점(지름 8)
+  const k = K * s;
+  disc(x, y, 12 * k, color, 0.12 * b); disc(x, y, 7 * k, color, 0.35 * b); disc(x, y, 4 * k, C.white, b);
+}
+function seg(p, a, bFrac, color, bright, o = {}) {
+  if (bFrac <= a || bright <= 0) return;
+  const whole = a <= 0 && bFrac >= 1;
+  const pts = whole ? p : sub(p, a, bFrac);
+  if (o.dash) { ctx.setLineDash(o.dash.map(v => v * K)); ctx.lineDashOffset = (o.dashOff || 0) * K; }
+  neonRaw(pts, color, bright, o);
+  if (o.dash) { ctx.setLineDash([]); ctx.lineDashOffset = 0; }
+  if (!whole && bFrac < 1 && !o.noHead) { const h = pts[pts.length - 1]; headDot(h[0], h[1], color, bright, o.dot || 1); }
+}
+// 기본 선: t0~t1 동안 한쪽 끝에서 달려가며 켜짐 → 두 번 깜빡 → 이후 약 4초마다 한 번 어두워짐
+function L(key, p, color, t0, t1, o = {}) {
+  if (T < t0) return;
+  const u = t1 > t0 ? clamp((T - t0) / (t1 - t0)) : 1;
+  const e = (o.ease || EASE.sine)(u);
+  let b = o.a ?? 1;
+  if (u >= 1 && !o.steady) { const dt = T - t1; b *= litFlicker(dt); if (dt >= 0.12) b *= idleDim(lineId(key), T); }
+  seg(p, 0, e, color, b, o);
+}
+// 이미 켜진 선(움직이는 소품): 깜빡임만 적용
+function lit(key, p, color, b = 1, o = {}) { seg(p, 0, 1, color, b * idleDim(lineId(key), T), o); }
+
+// 가로줄 무늬 채우기(간격 8, 아래부터)
+function stripes(clip, yTop, yBot, colorAt, b = 1, wave = 0) {
+  if (yTop >= yBot - 1) return;
+  let x0 = Infinity, x1 = -Infinity;
+  for (const q of clip) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; }
+  ctx.save();
+  ctx.beginPath(); ctx.moveTo(clip[0][0], clip[0][1]);
+  for (let i = 1; i < clip.length; i++) ctx.lineTo(clip[i][0], clip[i][1]);
+  ctx.closePath(); ctx.clip();
+  const w = Math.min(2.6 * K, 5);
+  for (let y = yBot - 4; y >= yTop; y -= 8) {
+    const c = typeof colorAt === 'function' ? colorAt(y) : colorAt;
+    let p;
+    if (wave && y - 8 < yTop) { p = []; for (let x = x0 - 4; x <= x1 + 4; x += 4) p.push([x, y + Math.sin(x * 0.2 + T * 9) * wave]); }
+    else p = [[x0 - 4, y], [x1 + 4, y]];
+    stroke(p, w * 2.8, c, 0.22 * b); stroke(p, w, c, 0.9 * b);
+  }
+  ctx.restore();
+}
+
+// ── 글자 ──
+const FONT = '"Black Han Sans", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif';
+const layCache = new Map();
+function layout(str, size) {
+  const key = str + '|' + size + '|' + fontReady;
+  let v = layCache.get(key);
+  if (v) return v;
+  ctx.font = `${size}px ${FONT}`;
+  const xs = [];
+  for (let i = 0; i < str.length; i++) xs.push(ctx.measureText(str.slice(0, i)).width);
+  v = { xs, w: ctx.measureText(str).width };
+  layCache.set(key, v);
+  return v;
+}
+function charOn(dt) {                                // 글자마다 켜질 때 두 번 깜빡
+  if (dt < 0) return 0;
+  if (dt >= 0.18) return 1;
+  const k = dt / 0.18;
+  return k < 0.18 ? 1 : k < 0.36 ? 0.12 : k < 0.58 ? 1 : k < 0.76 ? 0.12 : 1;
+}
+function hotMask(str) {
+  const m = new Array(str.length).fill(false);
+  for (let i = str.indexOf(TEXT.hot); i >= 0; i = str.indexOf(TEXT.hot, i + 1)) for (let j = 0; j < TEXT.hot.length; j++) m[i + j] = true;
+  return m;
+}
+function neonText(str, x, y, size, t0, o = {}) {
+  const lay = layout(str, size);
+  const left = o.align === 'left' ? x : x - lay.w / 2;
+  const res = { left, right: left + lay.w, done: t0 + (str.length - 1) / TEXT_RATE + 0.18 };
+  if (T < t0 || y + size < VIEW.y0 || y - size > VIEW.y1) return res;
+  ctx.font = `${size}px ${FONT}`; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  const hot = hotMask(str), a = o.a ?? 1;
+  for (let i = 0; i < str.length; i++) {
+    const ch = str[i];
+    if (ch === ' ') continue;
+    const b = charOn(T - (t0 + i / TEXT_RATE)) * a;
+    if (b <= 0) continue;
+    const glow = o.glow || (hot[i] ? C.yellow : C.cyan);
+    const fill = o.fill || (hot[i] ? C.yellow : C.white);
+    const cx = left + lay.xs[i];
+    ctx.strokeStyle = glow;
+    ctx.globalAlpha = 0.12 * b; ctx.lineWidth = size * 0.26; ctx.strokeText(ch, cx, y);
+    ctx.globalAlpha = 0.35 * b; ctx.lineWidth = size * 0.1; ctx.strokeText(ch, cx, y);
+    ctx.globalAlpha = b; ctx.lineWidth = Math.max(2, size * 0.03); ctx.strokeText(ch, cx, y);
+    ctx.fillStyle = fill; ctx.fillText(ch, cx, y);
+  }
+  return res;
+}
+const inView = (y0, y1) => y1 > VIEW.y0 - 60 && y0 < VIEW.y1 + 60;
+
+/* =====================================================================
+   2. 카메라 · 배경
+   ===================================================================== */
+function camAt(t) {
+  if (t <= CAMERA[0].t) return { x: CAMERA[0].x, y: CAMERA[0].y, z: CAMERA[0].z, mode: '시작' };
+  for (let i = 1; i < CAMERA.length; i++) {
+    const a = CAMERA[i - 1], b = CAMERA[i];
+    if (t <= b.t) {
+      const t0 = b.ease === '휙' ? Math.max(a.t, b.t - WHIP_MAX) : a.t;   // 휙은 짧게: 마지막 1초 안에서만 이동
+      const e = CAM_EASE[b.ease](clamp((t - t0) / (b.t - t0)));
+      return { x: lerp(a.x, b.x, e), y: lerp(a.y, b.y, e), z: Math.exp(lerp(Math.log(a.z), Math.log(b.z), e)), mode: b.ease };
+    }
+  }
+  const l = CAMERA[CAMERA.length - 1];
+  return { x: l.x, y: l.y, z: l.z, mode: '천천히' };
+}
+const WHIP_MAX = 1.0;
+const worldTf = cam => ctx.setTransform(cam.z, 0, 0, cam.z, W / 2 - cam.x * cam.z, H / 2 - cam.y * cam.z);
+
+// 격자 뒤 옅은 층: 큰 동심원 태양 + 열기 물결선 (카메라보다 느리게)
+const BG_SUNS = [[830, 250], [240, 1500], [870, 2760], [250, 4020], [840, 5250]];
+function drawParallax(cam) {
+  const z = 1 + (cam.z - 1) * PARALLAX.zoom;
+  const x = cam.x * PARALLAX.pos, y = cam.y * PARALLAX.pos;
+  ctx.setTransform(z, 0, 0, z, W / 2 - x * z, H / 2 - y * z);
+  const k0 = K; K = Math.max(1, 1 / z);
+  const b = PARALLAX.bright, hy0 = y - H / 2 / z - 700, hy1 = y + H / 2 / z + 700;
+  const cool = smooth(PARALLAX.cool[0], PARALLAX.cool[1], T);          // ⑤부터는 시안·민트만
+  const layer = (sunCol, waveCol, a) => {
+    if (a <= 0) return;
+    BG_SUNS.forEach(([sx, sy], i) => {
+      if (sy < hy0 || sy > hy1) return;
+      for (let r = 150; r <= 650; r += 100) neonRaw(G.circle(sx, sy, r), sunCol, b * a, { noCore: true });
+      for (let k = 0; k < 3; k++) {
+        const wy = sy + 720 + k * 48, dir = i % 2 ? 1 : -1;
+        neonRaw(G.wave(sx - 520, wy, sx + 520, wy, 14, 110, T * 1.4 * dir + k), waveCol, b * a, { noCore: true });
+      }
+    });
+  };
+  layer(C.yellow, C.orange, 1 - cool);
+  layer(C.cyan, C.mint, cool);
+  K = k0;
+}
+function drawGrid(cam) {
+  const lw = 1 / cam.z;
+  const draw = (major, color, a) => {
+    ctx.globalAlpha = a; ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.beginPath();
+    for (let i = Math.floor(VIEW.x0 / 60); i * 60 <= VIEW.x1; i++) {
+      if ((((i % 5) + 5) % 5 === 0) !== major) continue;
+      ctx.moveTo(i * 60, VIEW.y0); ctx.lineTo(i * 60, VIEW.y1);
+    }
+    for (let j = Math.floor(VIEW.y0 / 60); j * 60 <= VIEW.y1; j++) {
+      if ((((j % 5) + 5) % 5 === 0) !== major) continue;
+      ctx.moveTo(VIEW.x0, j * 60); ctx.lineTo(VIEW.x1, j * 60);
+    }
+    ctx.stroke();
+  };
+  draw(false, C.grid, 0.75);
+  draw(true, C.gridMajor, 0.9);
+}
+
+/* =====================================================================
+   3. 주인공 — 안전모 쓴 작업자 (중심 기준, 발끝 = y + 100)
+   ===================================================================== */
+const PATH_L = lengths(PATH), PATH_TOTAL = PATH_L[PATH_L.length - 1];
+const BODY = G.squircle(0, 50, 55, 50, 3);                         // 몸통 폭 110 · 높이 100
+const HEAD_FULL = G.circle(0, -42, 45);                             // 머리 지름 90
+const HEAD_LOW = G.arc(0, -42, 45, -0.18, Math.PI + 0.18);          // 안전모 아래로 보이는 부분
+const HELMET = [G.arc(0, 0, 50, Math.PI, TAU), G.line(-66, 0, 66, 0), [[-10, -49], [-8, -58], [8, -58], [10, -49]]];
+const VEST = [[[-30, 6], [0, 42], [30, 6]], [[-52, 28], [-47, 90], [47, 90], [52, 28]], [[0, 42], [0, 90]],
+  G.rrect(-40, 56, 22, 18, 5), G.rrect(18, 56, 22, 18, 5)];
+const SCARF = [G.ellipse(0, 2, 44, 9), [[18, 9], [26, 42]], [[30, 7], [42, 36]]];
+const SHADE = [[[-64, 0], [-60, 40], [-38, 50]], [[64, 0], [60, 40], [38, 50]], [[-52, 5], [-50, 40]], [[52, 5], [50, 40]]];
+const GEAR_AT = [50, 2, -58];                                       // 조끼·스카프·가리개 붙는 높이(로컬 y)
+const SNOW_A0 = [0.55, 2.6, -1.57];                                 // 눈꽃 표식 궤도 시작 각
+
+function pathPoint(s) {
+  const q = pointAt(PATH, PATH_L, clamp(s, 0, PATH_TOTAL));
+  return q;
+}
+function moveState(t) {
+  let s = 0;
+  for (const m of TL.moves) {
+    const s0 = PATH_L[m.seg], s1 = PATH_L[m.seg + 1];
+    if (t < m.t0) return { s: s0, m: null, last: null };
+    if (t <= m.t1) {
+      const u = (t - m.t0) / (m.t1 - m.t0);
+      const e = m.style === 'wobble' || m.style === 'limp' ? EASE.sine(u) : EASE.inOut(u);
+      return { s: lerp(s0, s1, e), m, u };
+    }
+    s = s1;
+  }
+  return { s, m: null };
+}
+function lastMove(t) { let r = null; for (const m of TL.moves) if (t > m.t1) r = m; return r; }
+
+function tempAt(t) {
+  let cur = 'cyan';
+  for (const [t0, t1, a, b, mode] of TL.temp) {
+    if (t < t0) return { a: cur, b: cur, p: 0 };
+    if (t < t1) {
+      let p;
+      if (mode === 'gulp') p = TL.gulps.reduce((s, g) => s + smooth(g, g + 0.3, t), 0) / TL.gulps.length;
+      else p = EASE.inOut((t - t0) / (t1 - t0));
+      return { a, b, p };
+    }
+    cur = b;
+  }
+  return { a: cur, b: cur, p: 0 };
+}
+
+function charState(t) {
+  const st = { show: t >= TL.land[0], sx: 1, sy: 1, rot: 0, lift: 0 };
+  const mv = moveState(t);
+  let [x, y] = pathPoint(mv.s);
+  let sx = 1, sy = 1, rot = 0, lift = 0;
+  if (t < TL.moves[0].t0) { x = POS.land[0]; y = POS.land[1]; }
+
+  // 낙하 → 찌그러짐 → 통 튕겨 자리 잡기
+  const [l0, l1] = TL.land, tHit = l0 + 0.22, tSq = tHit + 0.1;
+  if (t < l1) {
+    if (t < tHit) { const u = prog(t, l0, tHit); lift = (1 - u * u) * 780; sy = 1.14; sx = 0.9; }
+    else if (t < tSq) { const q = bump(prog(t, tHit, tSq)); sy = 1 - 0.3 * q; sx = 1 + 0.24 * q; }
+    else { const u = prog(t, tSq, l1); lift = 30 * arcH(u); sy = 1 + 0.08 * bump(u); sx = 1 - 0.05 * bump(u); }
+  }
+
+  // 경로 이동
+  if (mv.m) {
+    const m = mv.m, u = mv.u, dir = Math.sign(PATH[m.seg + 1][0] - PATH[m.seg][0]);
+    if (m.seg === 0) { const w = smooth(0, 0.18, u); x = lerp(POS.land[0], x, w); y = lerp(POS.land[1], y, w); }
+    if (m.style === 'hop' || m.style === 'run') {
+      const h = frac(u * m.hops), air = arcH(h), contact = 1 - clamp(Math.min(h, 1 - h) * 9);
+      lift += m.h * air;
+      sy *= 1 - 0.14 * contact + 0.07 * air; sx *= 1 + 0.12 * contact - 0.04 * air;
+      if (m.style === 'run') rot = dir * 0.16 * smooth(0, 0.15, u) * (1 - smooth(0.85, 1, u));
+    } else if (m.style === 'wobble') {                // 비틀비틀
+      rot = 0.2 * Math.sin(u * TAU * 2.5); x += 16 * Math.sin(u * TAU * 2.5); lift += 12 * Math.abs(Math.sin(u * Math.PI * 5));
+    } else if (m.style === 'limp') {                  // 흐느적
+      rot = 0.24 * Math.sin(u * TAU * 1.5); sy *= 0.9 + 0.06 * Math.sin(u * TAU * 3); sx *= 1.06; lift += 10 * Math.abs(Math.sin(u * Math.PI * 3));
+    }
+  } else if (st.show && t > l1) {
+    const lm = lastMove(t);                            // 도착 직후 출렁
+    if (lm && t - lm.t1 < 0.4) { const d = t - lm.t1, q = Math.exp(-d * 9) * Math.cos(d * 22); sy *= 1 - 0.13 * q; sx *= 1 + 0.1 * q; }
+    const br = Math.sin(t * TAU / 1.7);                // 숨쉬기
+    sy *= 1 + 0.022 * br; sx *= 1 - 0.011 * br;
+  }
+
+  // ② 부들부들 떨림
+  if (t >= TL.tremble[0] && t < TL.tremble[1]) x += 6 * Math.sin(t * TAU * 13);
+  else if (t >= TL.tremble[1] && t < TL.warn[0]) x += 2 * Math.sin(t * TAU * 13);
+  // ③ 마시기: 컵 쪽으로 살짝 기울고 꿀꺽마다 움찔
+  if (t > TL.drink[0] && t < TL.drink[1] + 0.3) {
+    rot += -0.08 * smooth(TL.drink[0], TL.drink[0] + 0.3, t) * (1 - smooth(TL.drink[1], TL.drink[1] + 0.3, t));
+    for (const g of TL.gulps) { const q = bump(prog(t, g, g + 0.3)); sy *= 1 - 0.06 * q; lift += 5 * q; }
+  }
+  // ⑤ 의자에 폴짝 올라앉기 → 숨 고르기
+  const [s0, s1] = TL.sit;
+  if (t >= s0 && t < TL.moves[5].t0 + 0.2) {
+    const u = prog(t, s0, s1);
+    lift += 70 * arcH(u);
+    y += 10 * (u >= 1 ? 1 - smooth(TL.moves[5].t0, TL.moves[5].t0 + 0.2, t) : u);
+    if (t >= s1) {
+      const d = t - s1, q = Math.exp(-d * 9) * Math.cos(d * 22);
+      sy *= 0.95 - 0.12 * q; sx *= 1.03 + 0.09 * q;
+    }
+  }
+  if (t > TL.breathe[0] && t < TL.breathe[1]) {
+    const env = smooth(TL.breathe[0], TL.breathe[0] + 0.3, t) * (1 - smooth(TL.breathe[1] - 0.3, TL.breathe[1], t));
+    const s = 1 + 0.06 * env * Math.sin((t - TL.breathe[0]) * TAU / 1.4);
+    sx *= s; sy *= s;
+  }
+  // ⑥ 장구 붙는 순간 눌렸다 튕김
+  for (const g of TL.gear) {
+    const d = t - (g + TL.gearFly);
+    if (d >= 0 && d < 0.4) { const q = Math.exp(-d * 9) * Math.cos(d * 24); sy *= 1 - 0.16 * q; sx *= 1 + 0.12 * q; }
+  }
+  // ⑦ 다가가 어깨 톡톡
+  if (t > TL.tap[0] && t < TL.tap[1] + 0.2) {
+    x += 120 * (smooth(TL.tap[0], TL.tap[0] + 0.2, t) - smooth(TL.tap[1] - 0.15, TL.tap[1] + 0.1, t));
+    rot += 0.26 * (bump(prog(t, 43.02, 43.22)) + bump(prog(t, 43.24, 43.44)));
+  }
+  // 마무리: 제자리 통통 두 번
+  if (t > TL.endHop[0] && t < TL.endHop[1]) {
+    const h = frac(prog(t, TL.endHop[0], TL.endHop[1]) * 2), c = 1 - clamp(Math.min(h, 1 - h) * 9);
+    lift += 55 * arcH(h); sy *= 1 - 0.12 * c; sx *= 1 + 0.1 * c;
+  }
+
+  Object.assign(st, { x, y, sx, sy, rot, lift, s: mv.s });
+  st.temp = tempAt(t);
+  st.mouth = smooth(TL.mouthWave[0], TL.mouthWave[1], t) * (1 - smooth(27.6, 28.9, t));
+  st.stars = smooth(TL.stars[0], TL.stars[0] + 0.3, t) * (1 - smooth(21.3, TL.drink[1], t));
+  st.m = mul(M(x, y + 100 - lift, rot, sx, sy), M(0, -100));
+  st.gear = TL.gear.map(g => prog(t, g + TL.gearFly, g + TL.gearFly + 0.18));
+  // 안전모: 'on' 이면 머리 위, 아니면 판 좌표
+  const [c0, c1] = TL.capOff, [o0, o1] = TL.capOn;
+  st.cap = 'on';
+  if (t >= c0 && t < o1) {
+    const head = tp(0, -50, st.m), rest = POS.capRest;
+    let u;
+    if (t < c1) u = EASE.inOut(prog(t, c0, c1));
+    else if (t < o0) u = 1;
+    else u = 1 - EASE.inOut(prog(t, o0, o1));
+    st.cap = { x: lerp(head[0], rest[0], u), y: lerp(head[1], rest[1], u) - 90 * arcH(u), rot: 0.14 * u };
+  }
+  return st;
+}
+
+// 색 바꿈: 새 색이 한쪽 끝에서 달려가며 덮음
+function wipe(key, p, tc, b, o = {}) {
+  const bb = b * idleDim(lineId(key), T);
+  if (o.draw !== undefined && o.draw < 1) return seg(p, 0, o.draw, C[tc.a], bb);
+  if (tc.p <= 0) return seg(p, 0, 1, C[tc.a], bb);
+  if (tc.p >= 1) return seg(p, 0, 1, C[tc.b], bb);
+  seg(p, tc.p, 1, C[tc.a], bb, { noHead: true });
+  seg(p, 0, tc.p, C[tc.b], bb);
+}
+function eyeDot(x, y, m, color, b) {
+  const q = tp(x, y, m);
+  stroke([[q[0] - 0.01, q[1]], [q[0] + 0.01, q[1]]], 16 * K, color, 0.14 * b);
+  stroke([[q[0] - 0.01, q[1]], [q[0] + 0.01, q[1]]], 8 * K, color, 0.5 * b);
+  stroke([[q[0] - 0.01, q[1]], [q[0] + 0.01, q[1]]], 5 * K, C.white, b);
+}
+// 주인공(또는 쓰러진 동료) 그리기
+function drawWorker(st, o = {}) {
+  const m = o.m || st.m, tc = o.temp || st.temp, b = o.b ?? 1, id = o.id || 'w', draw = o.draw;
+  wipe(id + 'body', tf(BODY, m), tc, b, { draw });
+  const capOn = st.cap === 'on';
+  wipe(id + 'head', tf(capOn ? HEAD_LOW : HEAD_FULL, m), tc, b, { draw });
+  if (capOn) {
+    const hm = mul(m, M(0, -50));
+    HELMET.forEach((p, i) => wipe(id + 'cap' + i, tf(p, hm), tc, b, { draw }));
+    if (st.gear && st.gear[2] > 0) SHADE.forEach((p, i) => seg(tf(p, hm), 0, st.gear[2], C.mint, b * idleDim(lineId(id + 'sh' + i), T)));
+  }
+  // 눈 · 입
+  const col = C[tc.p >= 0.5 ? tc.b : tc.a];
+  if (draw === undefined || draw >= 1) {
+    if (o.closedEyes) {
+      seg(tf([[-22, -34], [-11, -34]], m), 0, 1, col, b);
+      seg(tf([[11, -34], [22, -34]], m), 0, 1, col, b);
+    } else if (frac(T / 3.3 + 0.2) < 0.035) {           // 가끔 눈 깜빡
+      seg(tf([[-20, -34], [-12, -34]], m), 0, 1, col, b); seg(tf([[12, -34], [20, -34]], m), 0, 1, col, b);
+    } else { eyeDot(-16, -34, m, col, b); eyeDot(16, -34, m, col, b); }
+    const mw = st.mouth || 0, mouth = [];
+    for (let x = -13; x <= 13.01; x += 2) mouth.push([x, -14 + mw * 3.6 * Math.sin((x + 13) / 26 * TAU * 1.5)]);
+    seg(tf(mouth, m), 0, 1, col, b);
+  }
+  // 보냉장구
+  if (st.gear) {
+    if (st.gear[0] > 0) VEST.forEach((p, i) => seg(tf(p, m), 0, st.gear[0], C.mint, b * idleDim(lineId(id + 'v' + i), T)));
+    if (st.gear[1] > 0) SCARF.forEach((p, i) => seg(tf(p, m), 0, st.gear[1], C.mint, b * idleDim(lineId(id + 's' + i), T)));
+  }
+}
+// 벗어 둔 안전모
+function drawLooseCap(cap) {
+  const hm = M(cap.x, cap.y, cap.rot);
+  HELMET.forEach((p, i) => lit('lcap' + i, tf(p, hm), C.cyan));
+}
+
+/* =====================================================================
+   4. 장면 — 제목 · 경로선 · 단계 라벨
+   ===================================================================== */
+function sceneTitle() {
+  const { title1: a, title2: b, subtitle: s } = TEXT;
+  neonText(a.str, a.x, a.y, a.size, a.t);
+  neonText(b.str, b.x, b.y, b.size, b.t);
+  L('titleLine', G.line(280, 505, 1000, 505), C.cyan, TL.titleLine[0], TL.titleLine[1]);
+  neonText(s.str, s.x, s.y, s.size, s.t);
+}
+const ROUTE = [[280, 505]].concat(PATH);          // 제목 밑줄 → ⑦
+function scenePath(st) {
+  const s = T >= TL.moves[0].t0 ? st.s : 0;
+  if (s > 0) seg(PATH, 0, s / PATH_TOTAL, C.white, 0.35, { dash: [14, 10], noHead: true });
+  // 마무리: 민트 빛점이 달리며 실선으로 덧칠
+  L('recap', ROUTE, C.mint, TL.recap[0], TL.recap[1], { ease: EASE.accel, dot: 2.2 });
+}
+const LABEL_GEO = [];
+function drawLabel(lb, i) {
+  const s = lb.size, lay = layout(lb.str, s), d = s * 0.9, gap = s * 0.3;
+  const total = d + gap + lay.w, left = lb.x - total / 2, cx = left + d / 2;
+  LABEL_GEO[i] = { right: left + total, y: lb.y, s };
+  if (!inView(lb.y - s, lb.y + s)) return;
+  L('lbc' + i, G.circle(cx, lb.y, d / 2), C.cyan, lb.t, lb.t + 0.35);
+  neonText(String(lb.n), cx, lb.y + s * 0.02, s * 0.56, lb.t + 0.3);
+  const r = neonText(lb.str, left + d + gap, lb.y, s, lb.t + 0.4, { align: 'left' });
+  const uy = lb.y + s * 0.68;
+  L('lbu' + i, G.line(left, uy, left + total, uy), C.mint, r.done, r.done + 0.4);
+}
+function sceneLabels() { TEXT.labels.forEach(drawLabel); }
+
+/* =====================================================================
+   5. 장면 ① 햇볕
+   ===================================================================== */
+function sceneSun() {
+  const S = POS.sun, [r0, r1] = TL.sunRays;
+  L('sun', G.circle(S.x, S.y, S.r), C.yellow, TL.sun[0], TL.sun[1]);
+  const spin = T > r1 ? (T - r1) / TL.sunTurn * TAU : 0;
+  for (let i = 0; i < 12; i++) {
+    const a = i * TAU / 12 + spin - Math.PI / 2, t0 = r0 + i * (r1 - r0 - 0.06) / 11, rr = i % 2 ? 120 : 136;
+    L('ray' + i, G.line(S.x + Math.cos(a) * 102, S.y + Math.sin(a) * 102, S.x + Math.cos(a) * rr, S.y + Math.sin(a) * rr),
+      C.yellow, t0, t0 + 0.06, { ease: EASE.lin });
+  }
+  // 열기 물결선 세 줄 → 주인공 쪽으로 흘러내림
+  const tg = PATH[1], dx = tg[0] - S.x, dy = tg[1] - S.y, d = Math.hypot(dx, dy), ux = dx / d, uy = dy / d;
+  for (let k = 0; k < 3; k++) {
+    const off = (k - 1) * 44, t0 = TL.heat[0] + k * 0.28;
+    const x0 = S.x + ux * 150 - uy * off, y0 = S.y + uy * 150 + ux * off;
+    const x1 = tg[0] - ux * 100 - uy * off * 0.8, y1 = tg[1] - uy * 100 + ux * off * 0.8;
+    L('heat' + k, G.wave(x0, y0, x1, y1, 9, 46, T * 7 + k * 1.3), C.orange, t0, t0 + 1.0);
+  }
+  sceneThermo();
+}
+function thermoOutline(x, top, bot, hw, br) {        // 관 + 아래 둥근 알
+  const bc = bot - br, jy = bc - Math.sqrt(br * br - hw * hw), ja = Math.atan2(jy - bc, hw);
+  return [[x - hw, jy], [x - hw, top + hw]].concat(G.arc(x, top + hw, hw, Math.PI, TAU), [[x + hw, jy]],
+    G.arc(x, bc, br, ja, Math.PI - ja));
+}
+function sceneThermo() {
+  const P = POS.thermo, top = P.y - P.h / 2, bot = P.y + P.h / 2;
+  if (T < TL.thermo[0]) return;
+  const lvl = EASE.inOut(prog(T, TL.thermoFill[0], TL.thermoFill[1])) * 0.93;
+  const shake = lvl > 0.8 && T < 11.0 ? 2.4 * Math.sin(T * 80) : 0;       // 꼭대기 근처에서 바르르
+  const x = P.x + shake;
+  L('thermo', thermoOutline(x, top, bot, 20, 34), C.white, TL.thermo[0], TL.thermo[1] - 0.1);
+  for (let i = 0; i < 5; i++) {
+    const ty = top + 40 + i * 35, t0 = TL.thermo[0] + 0.3 + i * 0.05;
+    L('tick' + i, G.line(x + 28, ty, x + (i % 2 ? 40 : 48), ty), C.white, t0, t0 + 0.12);
+  }
+  const inner = thermoOutline(x, top + 7, bot - 10, 11, 24);
+  const yTop = lerp(bot - 12, top + 14, lvl);
+  stripes(inner, yTop, bot - 8, y => y > top + 175 ? C.cyan : y > top + 95 ? C.yellow : C.orange);
+}
+
+/* =====================================================================
+   6. 장면 ② 몸이 보내는 신호
+   ===================================================================== */
+function signalIcon(i, x, y) {
+  if (i === 0) {                                     // 소용돌이
+    const p = [], rot = -T * 2.2;
+    for (let a = 0; a <= 2.6 * TAU; a += 0.15) { const r = 5 + 36 * a / (2.6 * TAU); p.push([x + Math.cos(a + rot) * r, y + Math.sin(a + rot) * r]); }
+    return [p];
+  }
+  if (i === 1) return [shift([[8, -46], [-20, 6], [0, 6], [-10, 46], [22, -8], [2, -8], [8, -46]], x, y)];   // 번개
+  if (i === 2) return [G.drop(x - 28, y + 14, 11), G.drop(x, y - 12, 11), G.drop(x + 28, y + 14, 11)];       // 방울 셋
+  const k = 1 + 0.15 * Math.sin(T * 22);                                                                     // 지그재그(경련)
+  return [shift([[-46, 0], [-32, -22 * k], [-16, 22 * k], [0, -22 * k], [16, 22 * k], [32, -22 * k], [46, 0]], x, y)];
+}
+function sceneSignals(st) {
+  POS.signals.forEach(([x, y], i) => {
+    const t0 = TL.signals[i];
+    if (T < t0) return;
+    signalIcon(i, x, y).forEach((p, j) => L('sig' + i + j, p, C.orange, t0, t0 + 0.3, { ease: EASE.out }));
+    const u = prog(T, t0, t0 + 0.35);                                    // 팟: 번쩍 퍼지는 고리
+    if (u > 0 && u < 1) neonRaw(G.circle(x, y, 44 + 40 * EASE.out(u)), C.orange, (1 - u) * 0.8);
+    neonText(TEXT.signals[i], x, y + 70, 34, t0 + 0.2);
+  });
+  // 빨간 경고 고리 두 번
+  for (let k = 0; k < 2; k++) {
+    const t0 = TL.warn[0] + k * 0.4, u = prog(T, t0, t0 + 0.4);
+    if (u <= 0 || u >= 1) continue;
+    neonRaw(G.circle(st.x, st.y, 130 + 110 * EASE.out(u)), C.red, Math.pow(1 - u, 1.3));
+    if (u < 0.3) neonRaw(G.circle(st.x, st.y, 130), C.red, 1 - u / 0.3);
+  }
+}
+
+/* =====================================================================
+   7. 장면 ③ 시원한 물
+   ===================================================================== */
+const CUP = [[-32, -35], [-24, 35], [24, 35], [32, -35]];
+const CUP_IN = [[-27, -31], [-20, 30], [20, 30], [27, -31]];
+function cupLevel(t) {
+  const [p0, p1] = TL.pour, [f0, f1] = TL.refill;
+  if (t < p0 + 0.15) return 0;
+  if (t < TL.drink[0]) return 0.8 * EASE.sine(prog(t, p0 + 0.15, p1 - 0.1));
+  if (t < f0 + 0.15) return 0.8 * (1 - TL.gulps.reduce((s, g) => s + smooth(g, g + 0.25, t), 0) / 3);
+  return 0.8 * EASE.sine(prog(t, f0 + 0.2, f1 - 0.4));
+}
+function cupPose(t) {
+  const base = [POS.cup.x, POS.cup.y], mouth = [398, 2770];
+  const [d0, d1] = TL.drink;
+  let u = smooth(d0, d0 + 0.3, t) * (1 - smooth(d1 - 0.15, d1 + 0.15, t));
+  let rot = 1.2 * u;
+  for (const g of TL.gulps) rot += 0.12 * bump(prog(t, g - 0.05, g + 0.3)) * u;
+  return { x: lerp(base[0], mouth[0], u) , y: lerp(base[1], mouth[1], u) - 40 * arcH(u), rot, u };
+}
+function streamWin(t, a, b) {                          // 물줄기 머리·꼬리 위치(0~1)
+  return { head: smooth(a, a + 0.15, t), tail: smooth(b - 0.15, b, t) };
+}
+function sceneWater() {
+  const [w0, w1] = TL.water;
+  if (T < w0) return;
+  // 큰 물통
+  const jug = G.rrect(130, 2612, 140, 258, 26), cap = G.rrect(176, 2590, 48, 22, 6);
+  L('jug', jug, C.cyan, w0, w0 + 0.55);
+  L('jugcap', cap, C.cyan, w0 + 0.4, w0 + 0.65);
+  L('tap', [[270, 2798], [322, 2798], [322, 2810]], C.cyan, w0 + 0.55, w0 + 0.75);
+  L('lever', [[298, 2798], [298, 2782]], C.cyan, w0 + 0.7, w0 + 0.8);
+  let jl = lerp(2866, 2690, EASE.sine(prog(T, w0 + 0.55, w1)));
+  jl += 18 * prog(T, TL.pour[0], TL.pour[1]) + 16 * prog(T, TL.refill[0], TL.refill[1]);
+  stripes(G.rrect(136, 2618, 128, 246, 20), jl, 2866, C.cyan);
+  // 물줄기
+  const lvl = cupLevel(T), surf = POS.cup.y + 31 - lvl * 61;
+  for (const [a, b] of [[TL.pour[0], TL.pour[1] - 0.1], [TL.refill[0] + 0.15, TL.refill[1] - 0.35]]) {
+    if (T < a || T > b) continue;
+    const w = streamWin(T, a, b), yA = lerp(2812, surf, w.tail), yB = lerp(2812, surf, w.head), p = [];
+    for (let y = yA; y <= yB; y += 4) p.push([322 + 1.6 * Math.sin(y * 0.22 + T * 24), y]);
+    if (p.length > 1) seg(p, 0, 1, C.cyan, 0.9, { w: 0.8, dash: [12, 6], dashOff: -T * 140 });
+  }
+  // 되풀이 화살표(자주, 규칙적으로)
+  const [g0, g1] = TL.again, ax = POS.cup.x, ay = 2742, ar = 24;
+  if (T >= g0) {
+    const rot = TAU * EASE.inOut(prog(T, g0 + 0.25, g1));
+    const a0 = -Math.PI / 2 + 0.35 + rot, a1 = a0 + 5.2;
+    L('again', G.arc(ax, ay, ar, a0, a1), C.mint, g0, g0 + 0.25, { steady: T > g0 + 0.4 });
+    if (T >= g0 + 0.25) {
+      const ex = ax + Math.cos(a1) * ar, ey = ay + Math.sin(a1) * ar, tx = -Math.sin(a1), ty = Math.cos(a1);
+      const hx = -tx, hy = -ty, nx = Math.cos(a1), ny = Math.sin(a1);
+      L('againHead', [[ex + (hx + nx) * 9, ey + (hy + ny) * 9], [ex, ey], [ex + (hx - nx) * 9, ey + (hy - ny) * 9]], C.mint, g0 + 0.25, g0 + 0.3);
+    }
+  }
+}
+function drawCup() {                                  // 앞쪽 층(주인공 위)
+  if (T < TL.water[0] + 0.5) return;
+  const cp = cupPose(T), m = M(cp.x, cp.y, cp.rot), lvl = cupLevel(T);
+  L('cup', tf(CUP, m), C.cyan, TL.water[0] + 0.5, TL.water[1]);
+  if (lvl > 0.01) {
+    const inner = tf(CUP_IN, m);
+    let y0 = Infinity, y1 = -Infinity;
+    for (const q of inner) { y0 = Math.min(y0, q[1]); y1 = Math.max(y1, q[1]); }
+    const sl = cp.u > 0.5 ? 0.45 : 1;
+    stripes(inner, y1 - (y1 - y0) * lvl * sl, y1, C.cyan, 1, cp.u > 0.01 ? 0 : 2.2 * (1 - smooth(20.0, 20.4, T) * 0.6));
+  }
+}
+function drawGulpRipples(st) {                        // 꿀꺽 → 몸통 안 물결 고리
+  for (const g of TL.gulps) {
+    const u = prog(T, g, g + 0.45);
+    if (u <= 0 || u >= 1) continue;
+    const rx = 18 + 30 * u;
+    seg(tf(G.ellipse(0, 10 + 80 * u, rx, rx * 0.28), st.m), 0, 1, C.cyan, 1 - u);
+  }
+}
+
+/* =====================================================================
+   8. 장면 ④ 바람 · 그늘
+   ===================================================================== */
+const roofY = x => POS.shade.eave - 75 * (1 - Math.abs(x - POS.shade.top[0]) / 260);
+function scallops(x0, x1, y, n) {
+  const w = (x1 - x0) / n, p = [];
+  for (let i = 0; i < n; i++) p.push(...G.arc(x0 + w * (i + 0.5), y, w / 2, Math.PI, 0).slice(i ? 1 : 0));
+  return p;
+}
+function sceneShade() {
+  const S = POS.shade, [s0] = TL.shade, [tx, ty] = S.top;
+  if (T < s0) return;
+  L('poleL', G.line(S.left, S.eave, S.left, S.ground), C.cyan, s0, s0 + 0.45);
+  L('poleR', G.line(S.right, S.eave, S.right, S.ground), C.cyan, s0 + 0.05, s0 + 0.5);
+  L('roof', [[S.left - 40, S.eave], [tx, ty], [S.right + 40, S.eave]], C.cyan, s0 + 0.25, s0 + 0.7);
+  L('val', scallops(S.left - 40, S.right + 40, S.eave, 8), C.cyan, s0 + 0.6, s0 + 1.1);
+  // 노란 햇살 다섯 줄 → 지붕에 닿아 팅 튕겨 옆으로 꺾임
+  POS.sunbeam.xs.forEach((x, k) => {
+    const hy = roofY(x) - 8, dir = x < tx ? -1 : 1;
+    const p = [[x, POS.sunbeam.y], [x, hy], [x + dir * 80, hy - 34]];
+    const l1 = hy - POS.sunbeam.y, fHit = l1 / (l1 + Math.hypot(80, 34));
+    for (let c = 0; ; c++) {                          // 첫 줄기 뒤로도 햇살이 계속 지붕에 막힘
+      const t0 = TL.beams[0] + k * 0.1 + c * 1.3;
+      if (t0 > T || t0 > TL.wind[1]) break;
+      const u = (T - t0) / 0.7;
+      if (u >= 1) continue;
+      const head = u * 1.45, b = c ? 0.7 : 1;
+      seg(p, clamp(head - 0.45), clamp(head), C.yellow, b);
+      const s = (head - fHit) / 0.25;                  // 팅
+      if (s > 0 && s < 1) for (let j = 0; j < 4; j++) {
+        const a = -Math.PI / 2 + (j - 1.5) * 0.7, r0 = 10 + 14 * s, r1 = r0 + 12;
+        neonRaw(G.line(x + Math.cos(a) * r0, hy + Math.sin(a) * r0, x + Math.cos(a) * r1, hy + Math.sin(a) * r1), C.yellow, (1 - s) * b, { w: 0.7 });
+      }
+    }
+  });
+  sceneFan();
+}
+function fanAngle(t) {
+  const a = TL.fan[0] + 0.6, b = TL.fan[1], w = 16;
+  if (t < a) return 0;
+  if (t < b) return 0.5 * w / (b - a) * (t - a) * (t - a);
+  return 0.5 * w * (b - a) + w * (t - b);
+}
+function sceneFan() {
+  const F = POS.fan, [f0] = TL.fan;
+  if (T < f0) return;
+  const yaw = T > f0 + 0.6 ? 0.45 * Math.sin((T - f0 - 0.6) * TAU / 2.2) : 0;   // 좌우 끄덕끄덕
+  const m = M(F.x + 8 * Math.sin(yaw), F.y, 0, Math.cos(yaw), 1), ang = fanAngle(T);
+  L('fanRing', tf(G.circle(0, 0, F.r), m), C.white, f0, f0 + 0.45);
+  L('fanRing2', tf(G.circle(0, 0, F.r - 20), m), C.white, f0 + 0.15, f0 + 0.5, { a: 0.5 });
+  L('fanHub', tf(G.circle(0, 0, 10), m), C.white, f0 + 0.3, f0 + 0.45);
+  for (let k = 0; k < 3; k++) {
+    const bm = mul(m, M(0, 0, ang + k * TAU / 3));
+    L('blade' + k, tf(G.ellipse(0, -34, 14, 24), bm), C.white, f0 + 0.3 + k * 0.06, f0 + 0.6 + k * 0.06);
+  }
+  L('fanPole', G.line(F.x, F.y + F.r, F.x, F.y + F.r + 40), C.white, f0 + 0.2, f0 + 0.45);
+  L('fanBase', G.line(F.x - 38, F.y + F.r + 42, F.x + 38, F.y + F.r + 42), C.white, f0 + 0.35, f0 + 0.6);
+  // 시안 바람선 세 줄
+  const [w0, w1] = TL.wind;
+  if (T < w0 || T > w1 + 0.4) return;
+  const env = smooth(w0, w0 + 0.2, T) * (1 - smooth(w1 - 0.1, w1 + 0.4, T));
+  for (let k = 0; k < 3; k++) {
+    const y = F.y - 8 + (k - 1) * 38, f = frac((T - w0) / 0.7 + k * 0.31);
+    const p = G.wave(F.x + 88, y, 700, y + (k - 1) * 10, 6, 52, T * 5 + k);
+    seg(p, clamp(f * 1.4 - 0.45), clamp(f * 1.4), C.cyan, env);
+  }
+}
+
+/* =====================================================================
+   9. 장면 ⑤ 규칙적인 휴식
+   ===================================================================== */
+function benchSeat(x0, x1, y, sag) {
+  const top = [], bot = [];
+  for (let x = x0; x <= x1 + 0.01; x += 8) { const d = sag * Math.sin(Math.PI * (x - x0) / (x1 - x0)); top.push([x, y + d]); bot.push([x, y + 12 + d]); }
+  return top.concat(bot.reverse(), [top[0]]);
+}
+function sceneRest() {
+  const B = POS.bench, [b0] = TL.bench, x0 = B.x - B.w / 2, x1 = B.x + B.w / 2;
+  if (T < b0) return;
+  const d = T - TL.sit[1], sag = d >= 0 ? 14 * Math.exp(-d * 6) * Math.cos(d * 18) : 0;   // 꾹 눌렸다 돌아옴
+  L('seat', benchSeat(x0, x1, B.y, sag), C.white, b0, b0 + 0.6);
+  L('legL', G.line(x0 + 32, B.y + 12, x0 + 20, B.y + 70), C.white, b0 + 0.45, b0 + 0.8);
+  L('legR', G.line(x1 - 32, B.y + 12, x1 - 20, B.y + 70), C.white, b0 + 0.55, b0 + 0.9);
+  // 시계: 숫자 없이 바늘만, 세 바퀴 — 한 바퀴마다 흰빛 긴 호(일) · 민트 짧은 호(쉼)
+  const K0 = POS.clock, [c0, c1] = TL.clock;
+  if (T < c0) return;
+  L('clock', G.circle(K0.x, K0.y, K0.r), C.white, c0, c0 + 0.4);
+  const u = prog(T, c0 + 0.5, c1), turns = 3 * EASE.sine(u);
+  const am = -Math.PI / 2 + TAU * turns, ah = -Math.PI / 2 + 1.1 + TAU * turns / 12;
+  L('handM', G.line(K0.x, K0.y, K0.x + Math.cos(am) * 62, K0.y + Math.sin(am) * 62), C.white, c0 + 0.35, c0 + 0.5);
+  L('handH', G.line(K0.x, K0.y, K0.x + Math.cos(ah) * 38, K0.y + Math.sin(ah) * 38), C.white, c0 + 0.4, c0 + 0.5);
+  if (T > c0 + 0.45) headDot(K0.x, K0.y, C.cyan, 1, 1.2);
+  if (T < c0 + 0.5) return;
+  const n = Math.min(2, Math.floor(turns)), f = turns - n, R = K0.r + 17;
+  const work = G.arc(K0.x, K0.y, R, -Math.PI / 2, -Math.PI / 2 + TAU * 0.72);
+  const rest = G.arc(K0.x, K0.y, R, -Math.PI / 2 + TAU * 0.76, -Math.PI / 2 + TAU * 0.98);
+  if (n >= 1 && f < 0.15) { const a = 1 - f / 0.15; seg(work, 0, 1, C.white, a); seg(rest, 0, 1, C.mint, a); }
+  seg(work, 0, clamp(f / 0.72), C.white, 1);
+  if (f > 0.76) seg(rest, 0, clamp((f - 0.76) / 0.22), C.mint, 1);
+  // 안전모 내려놓는 '딸깍'
+  const k = prog(T, TL.capOff[1], TL.capOff[1] + 0.18), [rx, ry] = POS.capRest;
+  if (k > 0 && k < 1) for (let j = 0; j < 3; j++) {
+    const a = -Math.PI / 2 + (j - 1) * 0.8, r0 = 60 + 12 * k;
+    neonRaw(G.line(rx + Math.cos(a) * r0, ry + Math.sin(a) * r0 * 0.6, rx + Math.cos(a) * (r0 + 14), ry + Math.sin(a) * (r0 + 14) * 0.6), C.white, 1 - k, { w: 0.7 });
+  }
+}
+
+/* =====================================================================
+   10. 장면 ⑥ 보냉장구
+   ===================================================================== */
+function gearIcon(k, x, y, s = 1, rot = 0) {
+  const m = M(x, y, rot, s, s);
+  if (k === 0) return [[[-8, -20], [0, -6], [8, -20], [18, -14], [16, -2], [18, 20], [-18, 20], [-16, -2], [-18, -14], [-8, -20]], [[0, -6], [0, 20]]].map(p => tf(p, m));
+  if (k === 1) return [G.ellipse(0, -6, 20, 9), [[6, 2], [10, 22]], [[-4, 3], [0, 24]]].map(p => tf(p, m));
+  return [G.arc(0, -2, 16, Math.PI, TAU), [[-22, -2], [22, -2]], [[-18, -2], [-18, 18], [18, 18], [18, -2]], [[-6, 0], [-6, 18]], [[6, 0], [6, 18]]].map(p => tf(p, m));
+}
+const SHELF_ITEMS = [[958, 5176], [1010, 5184], [1064, 5178]];
+function sceneGear(st) {
+  const S = POS.shelf, [s0] = TL.shelf;
+  if (T < s0) return;
+  L('shelf', G.rrect(S.x - S.w / 2, S.y, S.w, 10, 4), C.white, s0, s0 + 0.4);
+  L('brL', [[S.x - 58, S.y + 10], [S.x - 58, S.y + 36], [S.x - 36, S.y + 10]], C.white, s0 + 0.25, s0 + 0.45);
+  L('brR', [[S.x + 58, S.y + 10], [S.x + 58, S.y + 36], [S.x + 36, S.y + 10]], C.white, s0 + 0.3, s0 + 0.5);
+  SHELF_ITEMS.forEach(([x, y], k) => {
+    const tg = TL.gear[k], t0 = s0 + 0.35 + k * 0.1;
+    if (T < tg) { gearIcon(k, x, y).forEach((p, j) => L('item' + k + j, p, C.mint, t0, t0 + 0.3)); return; }
+    const u = prog(T, tg, tg + TL.gearFly);
+    if (u >= 1) return;
+    const tgt = tp(0, GEAR_AT[k], st.m), e = EASE.inOut(u);          // 포물선으로 날아옴
+    const px = lerp(x, tgt[0], e), py = lerp(y, tgt[1], e) - 150 * arcH(u);
+    gearIcon(k, px, py, lerp(1, 1.5, e), u * Math.PI).forEach((p, j) => lit('fly' + k + j, p, C.mint));
+  });
+}
+function snowPos(st, k) {                             // 눈꽃 표식 위치
+  const ta = TL.gear[k] + TL.gearFly, pop = tp(0, GEAR_AT[k], st.m);
+  const orb = T > TL.shield[0] ? (T - TL.shield[0]) * 0.9 * smooth(TL.shield[0], TL.shield[0] + 0.6, T) : 0;
+  const a = SNOW_A0[k] + orb, out = [st.x + Math.cos(a) * 132, st.y + 4 + Math.sin(a) * 112];
+  const e = EASE.out(prog(T, ta + 0.1, ta + 0.45));
+  return [lerp(pop[0], out[0], e), lerp(pop[1], out[1], e)];
+}
+function drawSnow(st) {
+  TL.gear.forEach((g, k) => {
+    const ta = g + TL.gearFly;
+    if (T < ta) return;
+    const [x, y] = snowPos(st, k), pop = prog(T, ta, ta + 0.2), r = 14 * (1 + 0.6 * (1 - pop));
+    G.snow(x, y, r, T * 0.8 + k).forEach((p, j) => lit('snow' + k + j, p, C.mint, 1, { w: 0.8 }));
+    if (pop < 1) neonRaw(G.circle(x, y, 18 + 26 * pop), C.mint, 1 - pop, { w: 0.8 });
+  });
+  const u = prog(T, TL.shield[0], TL.shield[0] + 0.9);             // 민트 보호막 고리
+  if (u > 0 && u < 1) {
+    neonRaw(G.circle(st.x, st.y, 115 + 100 * EASE.out(u)), C.mint, Math.pow(1 - u, 1.2));
+    if (u < 0.25) neonRaw(G.circle(st.x, st.y, 115), C.mint, 1 - u / 0.25);
+  }
+}
+
+/* =====================================================================
+   11. 장면 ⑦ 응급조치 · 119 신고
+   ===================================================================== */
+const MATE_M = M(POS.mate.x, POS.mate.y, -Math.PI / 2);         // 옆으로 누운 동료
+function mateBright(t) {
+  const [c0, c1] = TL.calm;
+  const blink = frac(t * 2) < 0.5 ? 1 : 0.3;                     // 1초에 두 번 깜빡
+  if (t < c0) return blink;
+  const k = EASE.sine(prog(t, c0, c1));
+  return lerp(blink, 0.5, k);
+}
+function sceneAid() {
+  const [m0, m1] = TL.mate;
+  if (T < m0) return;
+  const draw = EASE.sine(prog(T, m0, m1));
+  const b = T < m1 ? 1 : mateBright(T);
+  L('mateGround', G.line(POS.mate.x - 130, POS.mate.y + 58, POS.mate.x + 130, POS.mate.y + 58), C.white, m0, m1, { a: 0.35 });
+  drawWorker({ cap: 'on', mouth: 0, gear: null }, { m: MATE_M, temp: { a: 'red', b: 'red', p: 0 }, b, id: 'mate', closedEyes: true, draw });
+  // 물음표: 켜졌다 꺼짐(반응 없음)
+  const q0 = 43.05, q1 = 43.55;
+  if (T >= q0 && T < q1 + 0.2) {
+    const off = T > q1 ? charOn(0.18 - (T - q1)) : 1, qx = 700, qy = 5915;
+    L('qm', G.arc(qx, qy - 14, 15, Math.PI * 1.05, Math.PI * 2.45).concat([[qx, qy + 12]]), C.white, q0, q0 + 0.2, { a: off, steady: true });
+    if (T > q0 + 0.2) headDot(qx, qy + 26, C.white, off);
+  }
+  // 톡톡: 두드리는 순간 작은 불꽃
+  for (const tt of [43.12, 43.34]) {
+    const u = prog(T, tt, tt + 0.16);
+    if (u <= 0 || u >= 1) continue;
+    for (let j = 0; j < 3; j++) {
+      const a = Math.PI + (j - 1) * 0.7, r0 = 8 + 10 * u;
+      neonRaw(G.line(628 + Math.cos(a) * r0, 5998 + Math.sin(a) * r0, 628 + Math.cos(a) * (r0 + 10), 5998 + Math.sin(a) * (r0 + 10)), C.white, 1 - u, { w: 0.6 });
+    }
+  }
+  // 전화기 + 빨간 119 + 전파
+  const P = POS.phone, [p0] = TL.call;
+  if (T >= p0) {
+    L('phone', G.rrect(P.x - 32, P.y - 55, 64, 110, 12), C.cyan, p0, p0 + 0.3);
+    L('screen', G.rrect(P.x - 24, P.y - 38, 48, 72, 4), C.cyan, p0 + 0.15, p0 + 0.35, { a: 0.55 });
+    L('spk', G.line(P.x - 8, P.y - 46, P.x + 8, P.y - 46), C.cyan, p0 + 0.25, p0 + 0.32);
+    L('btn', G.circle(P.x, P.y + 45, 4), C.cyan, p0 + 0.3, p0 + 0.36);
+    neonText(TEXT.call, P.x, P.y - 2, 28, p0 + 0.35, { glow: C.red, fill: C.red });
+    const w0 = p0 + 0.6, env = smooth(w0, w0 + 0.2, T) * (1 - smooth(TL.calm[0], TL.calm[1], T));
+    if (env > 0) for (let k = 0; k < 3; k++) {
+      const ph = frac((T - w0) * 1.1 + k / 3), r = 52 + 70 * ph, a = (1 - ph) * env;
+      neonRaw(G.arc(P.x, P.y, r, -0.55, 0.55), C.red, a);
+      neonRaw(G.arc(P.x, P.y, r, Math.PI - 0.55, Math.PI + 0.55), C.red, a);
+    }
+  }
+  // 그늘막 쓱 + 얼음팩 툭툭 + 냉기 고리
+  const [a0] = TL.aid, ax = POS.mate.x, apex = 5895, eave = 5945, gnd = 6095;
+  if (T < a0) return;
+  L('aidRoofL', [[ax, apex], [ax - 135, eave]], C.cyan, a0, a0 + 0.35);
+  L('aidRoofR', [[ax, apex], [ax + 135, eave]], C.cyan, a0, a0 + 0.35);
+  L('aidPoleL', G.line(ax - 115, eave, ax - 115, gnd), C.cyan, a0 + 0.2, a0 + 0.55);
+  L('aidPoleR', G.line(ax + 115, eave, ax + 115, gnd), C.cyan, a0 + 0.2, a0 + 0.55);
+  L('aidVal', scallops(ax - 135, ax + 135, eave, 6), C.cyan, a0 + 0.35, a0 + 0.7);
+  [[ax - 8, a0 + 0.7], [ax + 62, a0 + 0.95]].forEach(([px, tp0], k) => {
+    if (T < tp0) return;
+    const u = prog(T, tp0, tp0 + 0.15), py = lerp(5950, 5974, EASE.in(u));
+    const sq = T > tp0 + 0.15 ? 1 - 0.25 * Math.exp(-(T - tp0 - 0.15) * 14) : 1;
+    lit('pack' + k, G.rrect(px - 20 / sq, py - 10 * sq, 40 / sq, 20 * sq, 6), C.cyan);
+    const r = prog(T, tp0 + 0.15, tp0 + 0.85);
+    if (r > 0 && r < 1) neonRaw(G.ellipse(px, 5984, 20 + 70 * EASE.out(r), (20 + 70 * EASE.out(r)) * 0.32), C.cyan, 1 - r);
+  });
+}
+
+/* =====================================================================
+   12. 마무리 — 체크 · 끝 제목 · 아이콘 · 서명
+   ===================================================================== */
+function sceneChecks() {
+  for (let k = 0; k < 5; k++) {
+    const g = LABEL_GEO[k + 2];
+    if (!g) continue;
+    const t0 = TL.checks + k * TL.checkGap, s = g.s * 0.9, x = g.right + s * 0.62, y = g.y;
+    L('chk' + k, [[x - 0.32 * s, y], [x - 0.08 * s, y + 0.24 * s], [x + 0.36 * s, y - 0.3 * s]], C.mint, t0, t0 + 0.3);
+  }
+}
+function endIcon(k, x, y) {
+  if (k === 0) return [G.drop(x, y + 12, 22), G.arc(x, y + 12, 12, Math.PI * 0.62, Math.PI * 0.95)];
+  if (k === 1) return [[[x - 46, y - 18], [x, y - 40], [x + 46, y - 18]], scallops(x - 46, x + 46, y - 18, 3), G.line(x - 36, y - 18, x - 36, y + 40), G.line(x + 36, y - 18, x + 36, y + 40)];
+  if (k === 2) return [G.rrect(x - 40, y - 2, 80, 10, 4), G.line(x - 30, y + 8, x - 34, y + 40), G.line(x + 30, y + 8, x + 34, y + 40),
+    G.line(x - 38, y - 30, x + 38, y - 30), G.line(x - 28, y - 30, x - 28, y - 2), G.line(x + 28, y - 30, x + 28, y - 2)];
+  if (k === 3) return gearIcon(0, x, y, 1.7);
+  return [G.rrect(x - 20, y - 35, 40, 70, 9), G.circle(x, y + 26, 3), G.arc(x + 4, y - 18, 34, -0.6, 0.6), G.arc(x + 4, y - 18, 46, -0.6, 0.6)];
+}
+const END_ICON_COLOR = [C.cyan, C.cyan, C.white, C.mint, C.cyan];
+function sceneEnd() {
+  const { endTitle: e, sign } = TEXT;
+  neonText(e.str, e.x, e.y, e.size, e.t);
+  POS.icons.xs.forEach((x, k) => {
+    const t0 = TL.icons + k * TL.iconGap;
+    endIcon(k, x, POS.icons.y).forEach((p, j) => L('end' + k + j, p, k === 4 && j >= 2 ? C.mint : END_ICON_COLOR[k], t0, t0 + 0.4));
+  });
+  const [lx0, lx1, ly] = POS.endLine;
+  L('endLine', G.line(lx0, ly, lx1, ly), C.mint, TL.endLine[0], TL.endLine[1]);
+  neonText(sign.str, sign.x, sign.y, sign.size, sign.t);
+}
+
+/* =====================================================================
+   13. 앞쪽 층 — 땀방울 · 별 · 컵 등 주인공 위에 겹치는 것
+   ===================================================================== */
+function drawSweat(st) {
+  // 남아 있는 땀방울 둘 (바람에 날아감)
+  const blow = prog(T, 27.4, 28.3);
+  [[40, -58, 8.95], [-42, -48, 9.55]].forEach(([lx, ly, t0], i) => {
+    if (T < t0 || blow >= 1) return;
+    const q = tp(lx, ly, st.m), a = (1 - blow) * smooth(t0, t0 + 0.1, T);
+    lit('sw' + i, G.drop(q[0] + 120 * EASE.in(blow), q[1] - 30 * blow, 7), C.cyan, a, { w: 0.8 });
+  });
+  // 이마에서 톡톡 떨어져 바닥에서 튐
+  TL.sweat.forEach((t0, i) => {
+    const d = T - t0;
+    if (d < 0 || d > 0.75) return;
+    const s = tp(26 - i * 12, -52, st.m), gy = st.y + 100;
+    if (d < 0.42) {
+      const y = s[1] + (gy - s[1]) * (d / 0.42) * (d / 0.42);
+      lit('fall' + i, G.drop(s[0], y, 7), C.cyan, 1, { w: 0.8 });
+    } else {
+      const u = (d - 0.42) / 0.33;
+      for (const dir of [-1, 1]) neonRaw(G.arc(s[0] + dir * (6 + 16 * u), gy - 6, 8 + 6 * u, dir < 0 ? Math.PI * 1.1 : Math.PI * 1.55, dir < 0 ? Math.PI * 1.45 : Math.PI * 1.9), C.cyan, 1 - u, { w: 0.7 });
+    }
+  });
+}
+function drawStars(st) {
+  if (st.stars <= 0) return;
+  const c = tp(0, -126, st.m);
+  for (let k = 0; k < 3; k++) {
+    const a = T * 3 + k * TAU / 3, r = 11 + 3 * Math.sin(a);
+    lit('star' + k, G.star(c[0] + Math.cos(a) * 58, c[1] + Math.sin(a) * 14, r, r * 0.45, T * 2 + k), C.yellow, st.stars, { w: 0.8 });
+  }
+}
+
+/* =====================================================================
+   14. render(t) — 시간 t 하나로 한 장면 전체를 계산
+   ===================================================================== */
+const vig = document.createElement('canvas'); vig.width = W; vig.height = H;   // 가장자리 어둡게(한 번만 그림)
+{
+  const v = vig.getContext('2d'), g = v.createRadialGradient(W / 2, H / 2, H * 0.3, W / 2, H / 2, H * 0.64);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.62)');
+  v.fillStyle = g; v.fillRect(0, 0, W, H);
+}
+
+function render(t) {
+  T = ((t % DURATION) + DURATION) % DURATION;
+  const cam = camAt(T);
+  K = cam.z < 1 ? 1 / cam.z : 1;                     // 축소 시 선 굵기·번짐 보정
+  VIEW = { x0: cam.x - W / 2 / cam.z, x1: cam.x + W / 2 / cam.z, y0: cam.y - H / 2 / cam.z, y1: cam.y + H / 2 / cam.z };
+
+  // 휙 넘어가는 순간에만 모션 블러 (카메라 화면 속도로 계산)
+  let blur = 0, ux = 0, uy = 0;
+  if (cam.mode === '휙') {
+    const p = camAt(Math.max(0, T - 1 / 60));
+    const dx = (cam.x - p.x) * cam.z, dy = (cam.y - p.y) * cam.z, d = Math.hypot(dx, dy);
+    if (d > 1.5) { blur = Math.min(56, d * 0.9); ux = dx / d; uy = dy / d; }
+  }
+  ctx = blur > 0 ? bctx : mctx;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = 1; ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  drawParallax(cam);
+  worldTf(cam);
+  drawGrid(cam);
+
+  const st = charState(T);
+  scenePath(st);
+  if (inView(150, 660)) sceneTitle();
+  sceneLabels();
+  if (inView(700, 1560)) sceneSun();
+  if (inView(1650, 2420)) sceneSignals(st);
+  if (inView(2560, 3200)) sceneWater();
+  if (inView(3100, 4020)) sceneShade();
+  if (inView(4100, 4840)) sceneRest();
+  if (inView(5100, 5660)) sceneGear(st);
+  if (inView(5700, 6360)) sceneAid();
+  sceneChecks();
+  if (inView(6400, 6800)) sceneEnd();
+
+  // 주인공 + 앞쪽 층
+  if (st.cap !== 'on') drawLooseCap(st.cap);
+  if (st.show) {
+    drawWorker(st);
+    drawGulpRipples(st);
+    drawSweat(st);
+    drawStars(st);
+    drawSnow(st);
+  }
+  drawCup();
+
+  // 합성
+  mctx.setTransform(1, 0, 0, 1, 0, 0);
+  mctx.globalAlpha = 1;
+  if (blur > 0) {
+    const n = 6;
+    mctx.fillStyle = C.bg; mctx.fillRect(0, 0, W, H);
+    for (let i = 0; i < n; i++) {
+      const o = (i / (n - 1) - 0.5) * blur;
+      mctx.globalAlpha = 1 / (i + 1);
+      mctx.drawImage(buf, ux * o, uy * o);
+    }
+    mctx.globalAlpha = 1;
+  }
+  mctx.drawImage(vig, 0, 0);
+}
+
+/* =====================================================================
+   15. 재생 · 재생 위치 막대 · 화면 맞춤
+   ===================================================================== */
+const ui = { play: document.getElementById('play'), seek: document.getElementById('seek'), time: document.getElementById('time'), bar: document.getElementById('bar') };
+const ICON_PLAY = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9.5-5.5z"/></svg>';
+const ICON_PAUSE = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 1.5h3.2v11H2.5zM8.3 1.5h3.2v11H8.3z"/></svg>';
+let playing = true, now = 0, lastTs = 0, dirty = true, scrubbing = false;
+
+function setPlaying(v) {
+  playing = v; lastTs = 0;
+  ui.play.innerHTML = v ? ICON_PAUSE : ICON_PLAY;
+  ui.play.setAttribute('aria-label', v ? '일시정지' : '재생');
+}
+function seekTo(v) { now = clamp(v, 0, DURATION - 0.001); dirty = true; }
+function fit() {
+  const pad = 24, gap = 10, barH = 44;
+  let h = window.innerHeight - barH - gap - pad, w = h * W / H;
+  const maxW = window.innerWidth - 32;
+  if (w > maxW) { w = maxW; h = w * H / W; }
+  w = Math.max(80, w); h = Math.max(142, h);
+  cv.style.width = w + 'px'; cv.style.height = h + 'px';
+  ui.bar.style.width = Math.min(maxW, Math.max(w, 280)) + 'px';
+}
+function tick(ts) {
+  if (playing && !scrubbing) {
+    if (lastTs) now = (now + Math.min(0.25, (ts - lastTs) / 1000)) % DURATION;
+    lastTs = ts; dirty = true;
+  } else lastTs = 0;
+  if (dirty) {
+    render(now);
+    dirty = false;
+    if (!scrubbing) ui.seek.value = now.toFixed(2);
+    ui.time.textContent = `${now.toFixed(1)} / ${DURATION.toFixed(1)}`;
+  }
+  requestAnimationFrame(tick);
+}
+ui.play.addEventListener('click', () => setPlaying(!playing));
+ui.seek.addEventListener('input', () => { scrubbing = true; seekTo(parseFloat(ui.seek.value)); });
+ui.seek.addEventListener('change', () => { scrubbing = false; lastTs = 0; });
+window.addEventListener('pointerup', () => { if (scrubbing) { scrubbing = false; lastTs = 0; } });
+window.addEventListener('keydown', e => {
+  if (e.target === ui.seek && e.key !== ' ') return;
+  if (e.key === ' ') { e.preventDefault(); setPlaying(!playing); }
+  else if (e.key === 'ArrowRight') seekTo(now + 1);
+  else if (e.key === 'ArrowLeft') seekTo(now - 1);
+});
+window.addEventListener('resize', fit);
+// 글꼴은 재생을 막지 않고 뒤에서 불러옴 → 준비되면 글자 폭을 다시 잼
+const ALL_TEXT = [...new Set(JSON.stringify(TEXT).replace(/[\x00-\x7F]/g, '') + '0123456789')].join('');
+if (document.fonts && document.fonts.load) {
+  document.fonts.addEventListener('loadingdone', () => { layCache.clear(); dirty = true; });
+  let tries = 0;
+  const poll = setInterval(() => {
+    if (fontReady || ++tries > 60) return clearInterval(poll);
+    document.fonts.load('100px "Black Han Sans"', ALL_TEXT).then(f => {
+      if (f.length && !fontReady) { fontReady = true; layCache.clear(); dirty = true; }
+    }).catch(() => {});
+  }, 300);
+}
+window.render = render;                               // 콘솔에서 render(초) 로 확인 가능
+setPlaying(true);
+fit();
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
